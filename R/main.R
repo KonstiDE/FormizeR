@@ -14,9 +14,11 @@
 #   Test Package:              'Ctrl + Shift + T'
 
 install.packages("sf")
+install.packages("raster")
 install.packages("ggplot2")
 
 library(sf)
+library(raster)
 library(ggplot2)
 
 source("R/hexagon_intensifier.R")
