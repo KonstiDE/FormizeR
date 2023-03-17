@@ -1,0 +1,13 @@
+Package: FormizeR
+Type: Package
+Title: FormizeR
+Version: 0.1.0
+Authors@R: person("Konstantin", "Müller", email="konstantinfinn.mueller@gmx.de", role=c("aut", "cre"), comment=c(ORCID="0000-0001-6540-3124"))
+Maintainer: Konstantin Müller <konstantinfinn.mueller@gmx.de>
+Description: Formizes your data to plot with different shapes
+License: GPL-3
+Encoding: UTF-8
+Imports:
+    sf
+BugReports: https://github.com/KonstiDE/FormizeR/issues
+RoxygenNote: 7.2.3
