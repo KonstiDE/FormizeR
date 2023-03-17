@@ -13,9 +13,11 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
-install.packages("devtools")
 install.packages("sf")
 install.packages("ggplot2")
+
+library(sf)
+library(ggplot2)
 
 source("R/hexagon_intensifier.R")
 source("R/triangle_intensifier.R")
