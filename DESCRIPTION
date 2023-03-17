@@ -8,6 +8,8 @@ Description: Formizes your data to plot with different shapes
 License: GPL-3
 Encoding: UTF-8
 Imports:
-    sf
+    sf,
+    ggpplot2,
+    raster
 BugReports: https://github.com/KonstiDE/FormizeR/issues
 RoxygenNote: 7.2.3

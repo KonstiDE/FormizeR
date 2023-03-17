@@ -13,19 +13,9 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
-install.packages("sf")
-install.packages("raster")
-install.packages("ggplot2")
-
-library(sf)
-library(raster)
-library(ggplot2)
 
 source("R/hexagon_intensifier.R")
 source("R/triangle_intensifier.R")
-
-shape_layer <- st_read("data/ger_admin.gpkg")
-point_layer <- st_read("data/ger_bakeries.gpkg")
 
 plot_intensity_standard(
   point_layer,
@@ -43,10 +33,6 @@ df <- plot_intensity_finshernet(
   net.border = FALSE,
   plot = FALSE
 )
-
-ggplot(df$geometry, aes(fill=df$intensity)) +
-  geom_sf() +
-  scale_fill_gradientn(colours=c("black", "orange"))
 
 
 
