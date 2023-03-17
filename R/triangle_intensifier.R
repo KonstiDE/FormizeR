@@ -21,9 +21,9 @@ position_triangle_midi <- function(m, crs, height, offset_x, offset_y, flip){
 }
 
 #' @export
+#' @import sf, raster, ggplot2
 #' @title: plot_intensity_fishernet
 #' Calculate and plot intensity maps with a finshernet-triangular shape.
-#'
 #' @param point_layer sf object: An sf object containing points.
 #' @param shape_layer sf object: An sf object consisting of a polygon.
 #' @param cellsize numeric: Size of the triangles of the net.

@@ -14,25 +14,24 @@
 #   Test Package:              'Ctrl + Shift + T'
 
 
-source("R/hexagon_intensifier.R")
-source("R/triangle_intensifier.R")
+devtools::load_all()
 
-plot_intensity_standard(
-  point_layer,
-  shape_layer,
-  cellsize = 0.2,
-  hex = TRUE,
-  hex.border = FALSE,
-  plot=TRUE
-)
+#plot_intensity_standard(
+#  point_layer,
+#  shape_layer,
+#  cellsize = 0.2,
+#  hex = TRUE,
+#  hex.border = FALSE,
+#  plot=TRUE
+#)
 
-df <- plot_intensity_finshernet(
-  point_layer,
-  shape_layer,
-  cellsize = 0.4,
-  net.border = FALSE,
-  plot = FALSE
-)
+#df <- plot_intensity_finshernet(
+#  point_layer,
+#  shape_layer,
+#  cellsize = 0.4,
+#  net.border = FALSE,
+#  plot = FALSE
+#)
 
 
 
