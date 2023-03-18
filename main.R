@@ -14,7 +14,7 @@
 #   Test Package:              'Ctrl + Shift + T'
 
 
-load_all()
+load_all("./R/")
 
 #plot_intensity_standard(
 #  point_layer,

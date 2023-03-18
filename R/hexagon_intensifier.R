@@ -1,5 +1,4 @@
 #' @export
-#' @import sf
 #' @title: plot_intensity_standard
 #' Calculate and plot intensity maps with a hexagonial or rectangular shapes.
 #'
