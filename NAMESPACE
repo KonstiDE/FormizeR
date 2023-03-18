@@ -2,7 +2,7 @@
 
 export(plot_intensity_finshernet)
 export(plot_intensity_standard)
-import(devtools)
-import(raster)
 import(sf)
+import(raster)
+import(devtools)
 import(ggplot2)
