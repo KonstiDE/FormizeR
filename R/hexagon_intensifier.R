@@ -14,7 +14,7 @@
 #' @param plot.scalename character: Displays a name for the scalebar
 #' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
 #' @examples
-#' plot_intensity(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
+#' plot_intensity_standard(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
 plot_intensity_standard <- function(point_layer, shape_layer, cellsize, hex=TRUE, hex.border=TRUE, hex.border.color="black", hex.border.width=0.1, plot=TRUE, plot.color=c("white", "blue"), plot.scalename=""){
   grid <- st_make_grid(shape_layer, cellsize = cellsize, square = !hex)
 
