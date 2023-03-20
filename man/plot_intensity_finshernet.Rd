@@ -44,5 +44,5 @@ data.frame: With column geometry (sf polygons) and intensity (numerics)
 Calculate and plot intensity maps with a finshernet-triangular shape.
 }
 \examples{
-plot_intensity(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
+plot_intensity_finshernet(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
 }

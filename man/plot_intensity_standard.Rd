@@ -47,5 +47,5 @@ data.frame: With column geometry (sf polygons) and intensity (numerics)
 Calculate and plot intensity maps with a hexagonial or rectangular shapes.
 }
 \examples{
-plot_intensity(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
+plot_intensity_standard(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
 }

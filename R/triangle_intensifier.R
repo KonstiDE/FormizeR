@@ -130,7 +130,7 @@ plot_intensity_finshernet <- function(
 
 
 #' @export
-#' @title: plot_intensity_fishernet
+#' @title: plot_intensity_triangular_left
 #' Calculate and plot intensity maps with a finshernet-triangular shape.
 #' @param point_layer sf object: An sf object containing points.
 #' @param shape_layer sf object: An sf object consisting of a polygon.
@@ -197,7 +197,7 @@ plot_intensity_triangular_left <- function(
 
 
 #' @export
-#' @title: plot_intensity_fishernet
+#' @title: plot_intensity_triangular_right
 #' Calculate and plot intensity maps with a finshernet-triangular shape.
 #' @param point_layer sf object: An sf object containing points.
 #' @param shape_layer sf object: An sf object consisting of a polygon.
@@ -210,7 +210,7 @@ plot_intensity_triangular_left <- function(
 #' @param plot.scalename character: Displays a name for the scalebar
 #' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
 #' @examples
-#' plot_intensity_triangular_left(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
+#' plot_intensity_triangular_right(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
 plot_intensity_triangular_right <- function(
   point_layer,
   shape_layer,

@@ -2,7 +2,5 @@
 
 export(plot_intensity_finshernet)
 export(plot_intensity_standard)
-import(sf)
-import(raster)
-import(devtools)
-import(ggplot2)
+export(plot_intensity_triangular_left)
+export(plot_intensity_triangular_right)
