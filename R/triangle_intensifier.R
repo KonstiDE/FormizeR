@@ -63,7 +63,6 @@ position_triangle_right <- function(m, crs, cellsize, height, offset_x, offset_y
 }
 
 
-
 #' @export
 #' @title: plot_intensity_fishernet
 #' Calculate and plot intensity maps with a finshernet-triangular shape.

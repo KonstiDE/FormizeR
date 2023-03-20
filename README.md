@@ -51,8 +51,8 @@ df <- plot_intensity_standard(
     plot=FALSE
 )
 
-ggplot() + 
-    geom_sf(data = df$geometry, mapping = aes(df$intensity)) + 
+ggplot(data = df$geometry, mapping = aes(df$intensity)) + 
+    geom_sf(color=NA) + 
     scale_fill_gradient(colours = c("white", "purple", "blue", "black"))
 ```
 
@@ -61,6 +61,7 @@ it provides, such as:
 
 > plot_intensity_standard(...)\
 > plot_intensity_fishernet(...)\
-> plot_intensity_trinagles(...)
+> plot_intensity_trinagles_left(...)\
+> plot_intensity_triangles_right(...)\
 
 

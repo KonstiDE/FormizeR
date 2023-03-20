@@ -1,0 +1,101 @@
+position_diamond <- function(m, crs, offset_x, offset_y){
+  if(offset_x != 0){
+    m[1,][1] <- m[1,][1] + offset_x
+    m[2,][1] <- m[2,][1] + offset_x
+    m[3,][1] <- m[3,][1] + offset_x
+    m[4,][1] <- m[4,][1] + offset_x
+    m[5,][1] <- m[5,][1] + offset_x
+  }
+  if(offset_y != 0){
+    m[1,][2] <- m[1,][2] + offset_y
+    m[2,][2] <- m[2,][2] + offset_y
+    m[3,][2] <- m[3,][2] + offset_y
+    m[4,][2] <- m[4,][2] + offset_y
+    m[5,][2] <- m[5,][2] + offset_y
+  }
+  return(st_sfc(st_polygon(list(m)), crs=crs))
+}
+
+#' @export
+#' @title: plot_intensity_triangular_right
+#' Calculate and plot intensity maps with a finshernet-triangular shape.
+#' @param point_layer sf object: An sf object containing points.
+#' @param shape_layer sf object: An sf object consisting of a polygon.
+#' @param cellsize numeric: Size of the triangles of the net.
+#' @param net.border logical: Determines if borders of the forms will be drawn
+#' @param net.border.color character: Sets the color of the outlines (ignored if hex.border=FALSE)
+#' @param net.border.width numeric: Sets the width of the outlines (ignored if hex.border=FALSE)
+#' @param plot logical: Whether to plot the map
+#' @param plot.colors vector of characters: Sets the colorscale for the plot
+#' @param plot.scalename character: Displays a name for the scalebar
+#' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
+#' @examples
+#' plot_intensity_triangular_right(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
+plot_intensity_diamond <- function(
+  point_layer,
+  shape_layer,
+  cellsize,
+  net.border=TRUE,
+  net.border.color="black",
+  net.border.width=1,
+  plot=TRUE,
+  plot.colors=c("purple", "orange", "red"),
+  plot.scalename=""
+){
+  point_layer <- st_read("data/ger_bakeries.gpkg")
+  shape_layer <- st_read("data/ger_admin.gpkg")
+
+  cellsize = 1
+
+  grid_extent <- extent(point_layer)
+  grid_crs <- crs(point_layer)
+
+  lonlat1 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin)
+  lonlat2 <- cbind(grid_extent@xmin + cellsize, grid_extent@ymin + cellsize / 2)
+  lonlat3 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + cellsize)
+  lonlat4 <- cbind(grid_extent@xmin, grid_extent@ymin + cellsize / 2)
+
+  matrix <- rbind(lonlat1, lonlat2, lonlat3, lonlat4, lonlat1)
+
+  pol = st_sfc(st_polygon(list(matrix)), crs=grid_crs)
+  pol
+
+  ggplot() +
+    geom_sf(data = pol)
+
+  cellsize = 0.2
+  diamond_list <- list()
+  starting_x <- 0
+  runner_x <- 0
+  runner_y <- 0
+  for (t in seq(0:ceiling((grid_extent@ymax - grid_extent@ymin) / cellsize * 2))){
+    for (i in seq(0:ceiling((grid_extent@xmax - grid_extent@xmin) / cellsize))){
+      diamond_list[[length(diamond_list) + 1]] <- position_diamond(matrix, grid_crs, runner_x + starting_x, runner_y)
+      runner_x <- runner_x + cellsize
+    }
+    runner_x <- 0
+    runner_y <- runner_y + cellsize / 2
+    if(starting_x == 0){
+      starting_x <- 0.5
+    }else{
+      starting_x <- 0;
+    }
+  }
+  diamond_sf <- sf::st_sf(as.data.frame(do.call(rbind, diamond_list)), crs = grid_crs)
+  diamond_sf <- sf::st_as_sfc(diamond_sf)
+
+  intersection <- lengths(st_intersects(diamond_sf, shape_layer)) > 0
+  intensity <- lengths(st_intersects(diamond_sf[intersection], point_layer))
+
+  ggplot(diamond_sf[intersection], aes(fill = intensity)) +
+      geom_sf(color=NA) +
+      scale_fill_gradientn(colours=c("grey", "orange", "red"))
+
+  if(plot){
+    ggplot(diamond_sf[intersection], aes(fill = intensity)) +
+      geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width) +
+      scale_fill_gradientn(colours=plot.colors, name=plot.scalename)
+  }else{
+    return(cbind(as.data.frame(fishernet_sf[intersection]), intensity))
+  }
+}
