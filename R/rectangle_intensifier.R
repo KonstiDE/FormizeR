@@ -21,7 +21,7 @@ position_diamond <- function(m, crs, offset_x, offset_y){
 #' Calculate and plot intensity maps with a finshernet-triangular shape.
 #' @param point_layer sf object: An sf object containing points.
 #' @param shape_layer sf object: An sf object consisting of a polygon.
-#' @param cellsize numeric: Size of the triangles of the net.
+#' @param cellsize numeric: Size of the diamonds of the net.
 #' @param net.border logical: Determines if borders of the forms will be drawn
 #' @param net.border.color character: Sets the color of the outlines (ignored if hex.border=FALSE)
 #' @param net.border.width numeric: Sets the width of the outlines (ignored if hex.border=FALSE)
@@ -30,7 +30,7 @@ position_diamond <- function(m, crs, offset_x, offset_y){
 #' @param plot.scalename character: Displays a name for the scalebar
 #' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
 #' @examples
-#' plot_intensity_triangular_right(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
+#' plot_intensity_diamond(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
 plot_intensity_diamond <- function(
   point_layer,
   shape_layer,
@@ -39,14 +39,9 @@ plot_intensity_diamond <- function(
   net.border.color="black",
   net.border.width=1,
   plot=TRUE,
-  plot.colors=c("purple", "orange", "red"),
+  plot.colors=c("grey", "orange", "red"),
   plot.scalename=""
 ){
-  point_layer <- st_read("data/ger_bakeries.gpkg")
-  shape_layer <- st_read("data/ger_admin.gpkg")
-
-  cellsize = 1
-
   grid_extent <- extent(point_layer)
   grid_crs <- crs(point_layer)
 
@@ -57,13 +52,6 @@ plot_intensity_diamond <- function(
 
   matrix <- rbind(lonlat1, lonlat2, lonlat3, lonlat4, lonlat1)
 
-  pol = st_sfc(st_polygon(list(matrix)), crs=grid_crs)
-  pol
-
-  ggplot() +
-    geom_sf(data = pol)
-
-  cellsize = 0.2
   diamond_list <- list()
   starting_x <- 0
   runner_x <- 0
@@ -76,7 +64,7 @@ plot_intensity_diamond <- function(
     runner_x <- 0
     runner_y <- runner_y + cellsize / 2
     if(starting_x == 0){
-      starting_x <- 0.5
+      starting_x <- cellsize / 2
     }else{
       starting_x <- 0;
     }
@@ -86,10 +74,6 @@ plot_intensity_diamond <- function(
 
   intersection <- lengths(st_intersects(diamond_sf, shape_layer)) > 0
   intensity <- lengths(st_intersects(diamond_sf[intersection], point_layer))
-
-  ggplot(diamond_sf[intersection], aes(fill = intensity)) +
-      geom_sf(color=NA) +
-      scale_fill_gradientn(colours=c("grey", "orange", "red"))
 
   if(plot){
     ggplot(diamond_sf[intersection], aes(fill = intensity)) +
