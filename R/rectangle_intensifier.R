@@ -16,9 +16,26 @@ position_diamond <- function(m, crs, offset_x, offset_y){
   return(st_sfc(st_polygon(list(m)), crs=crs))
 }
 
+position_rectengular_fisher <- function(m, crs, offset_x, offset_y){
+  if(offset_x != 0){
+    m[1,][1] <- m[1,][1] + offset_x
+    m[2,][1] <- m[2,][1] + offset_x
+    m[3,][1] <- m[3,][1] + offset_x
+    m[4,][1] <- m[4,][1] + offset_x
+  }
+  if(offset_y != 0){
+    m[1,][2] <- m[1,][2] + offset_y
+    m[2,][2] <- m[2,][2] + offset_y
+    m[3,][2] <- m[3,][2] + offset_y
+    m[4,][2] <- m[4,][2] + offset_y
+  }
+  return(st_sfc(st_polygon(list(m)), crs=crs))
+}
+
+
 #' @export
-#' @title: plot_intensity_triangular_right
-#' Calculate and plot intensity maps with a finshernet-triangular shape.
+#' @title: plot_intensity_diamond
+#' Calculate and plot intensity maps with a diamond shape.
 #' @param point_layer sf object: An sf object containing points.
 #' @param shape_layer sf object: An sf object consisting of a polygon.
 #' @param cellsize numeric: Size of the diamonds of the net.
@@ -83,3 +100,86 @@ plot_intensity_diamond <- function(
     return(cbind(as.data.frame(fishernet_sf[intersection]), intensity))
   }
 }
+
+
+
+#' @export
+#' @title: plot_intensity_rectengular_fishernet
+#' Calculate and plot intensity maps with a finshernet-triangular shape.
+#' @param point_layer sf object: An sf object containing points.
+#' @param shape_layer sf object: An sf object consisting of a polygon.
+#' @param cellsize numeric: Size of the diamonds of the net.
+#' @param net.border logical: Determines if borders of the forms will be drawn
+#' @param net.border.color character: Sets the color of the outlines (ignored if hex.border=FALSE)
+#' @param net.border.width numeric: Sets the width of the outlines (ignored if hex.border=FALSE)
+#' @param plot logical: Whether to plot the map
+#' @param plot.colors vector of characters: Sets the colorscale for the plot
+#' @param plot.scalename character: Displays a name for the scalebar
+#' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
+#' @examples
+#' plot_intensity_rectengular_fishernet(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
+plot_intensity_rectengular_fishernet <- function(
+  point_layer,
+  shape_layer,
+  cellsize,
+  net.border=TRUE,
+  net.border.color="black",
+  net.border.width=1,
+  plot=TRUE,
+  plot.colors=c("grey", "orange", "red"),
+  plot.scalename=""
+){
+  grid_extent <- extent(point_layer)
+  grid_crs <- crs(point_layer)
+
+  lonlat1 <- cbind(grid_extent@xmin, grid_extent@ymin)
+  lonlat2 <- cbind(grid_extent@xmin + cellsize, grid_extent@ymin)
+  lonlat3 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + cellsize / 2)
+
+  lonlat4 <- cbind(grid_extent@xmin + cellsize, grid_extent@ymin)
+  lonlat5 <- cbind(grid_extent@xmin + cellsize, grid_extent@ymin + cellsize)
+  lonlat6 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + cellsize / 2)
+
+  lonlat7 <- cbind(grid_extent@xmin + cellsize, grid_extent@ymin + cellsize)
+  lonlat8 <- cbind(grid_extent@xmin, grid_extent@ymin + cellsize)
+  lonlat9 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + cellsize / 2)
+
+  lonlat10 <- cbind(grid_extent@xmin, grid_extent@ymin + cellsize)
+  lonlat11 <- cbind(grid_extent@xmin, grid_extent@ymin)
+  lonlat12 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + cellsize / 2)
+
+  matrix1 <- rbind(lonlat1, lonlat2, lonlat3, lonlat1)
+  matrix2 <- rbind(lonlat4, lonlat5, lonlat6, lonlat4)
+  matrix3 <- rbind(lonlat7, lonlat8, lonlat9, lonlat7)
+  matrix4 <- rbind(lonlat10, lonlat11, lonlat12, lonlat10)
+
+  rectfisher_list <- list()
+  runner_x <- 0
+  runner_y <- 0
+  for (t in seq(0:ceiling((grid_extent@ymax - grid_extent@ymin) / cellsize * 2))){
+    for (i in seq(0:ceiling((grid_extent@xmax - grid_extent@xmin) / cellsize))){
+      lenght_list <- length(rectfisher_list)
+      rectfisher_list[[lenght_list + 1]] <- position_rectengular_fisher(matrix1, grid_crs, runner_x, runner_y)
+      rectfisher_list[[lenght_list + 2]] <- position_rectengular_fisher(matrix2, grid_crs, runner_x, runner_y)
+      rectfisher_list[[lenght_list + 3]] <- position_rectengular_fisher(matrix3, grid_crs, runner_x, runner_y)
+      rectfisher_list[[lenght_list + 4]] <- position_rectengular_fisher(matrix4, grid_crs, runner_x, runner_y)
+      runner_x <- runner_x + cellsize
+    }
+    runner_x <- 0
+    runner_y <- runner_y + cellsize
+  }
+  rectfisher_sf <- sf::st_sf(as.data.frame(do.call(rbind, rectfisher_list)), crs = grid_crs)
+  rectfisher_sf <- sf::st_as_sfc(rectfisher_sf)
+
+  intersection <- lengths(st_intersects(rectfisher_sf, shape_layer)) > 0
+  intensity <- lengths(st_intersects(rectfisher_sf[intersection], point_layer))
+
+  if(plot){
+    ggplot(rectfisher_sf[intersection], aes(fill = intensity)) +
+      geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width) +
+      scale_fill_gradientn(colours=plot.colors, name=plot.scalename)
+  }else{
+    return(cbind(as.data.frame(fishernet_sf[intersection]), intensity))
+  }
+}
+

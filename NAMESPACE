@@ -2,6 +2,7 @@
 
 export(plot_intensity_diamond)
 export(plot_intensity_finshernet)
+export(plot_intensity_rectengular_fishernet)
 export(plot_intensity_standard)
 export(plot_intensity_triangular_left)
 export(plot_intensity_triangular_right)

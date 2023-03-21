@@ -2,8 +2,8 @@
 % Please edit documentation in R/rectangle_intensifier.R
 \name{plot_intensity_diamond}
 \alias{plot_intensity_diamond}
-\title{: plot_intensity_triangular_right
-Calculate and plot intensity maps with a finshernet-triangular shape.}
+\title{: plot_intensity_diamond
+Calculate and plot intensity maps with a diamond shape.}
 \usage{
 plot_intensity_diamond(
   point_layer,
@@ -40,8 +40,8 @@ plot_intensity_diamond(
 data.frame: With column geometry (sf polygons) and intensity (numerics)
 }
 \description{
-: plot_intensity_triangular_right
-Calculate and plot intensity maps with a finshernet-triangular shape.
+: plot_intensity_diamond
+Calculate and plot intensity maps with a diamond shape.
 }
 \examples{
 plot_intensity_diamond(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
