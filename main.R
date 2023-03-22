@@ -24,8 +24,10 @@ plot_intensity_standard(
   hex = TRUE,
   hex.border = FALSE,
   plot=TRUE,
-  plot.3d=TRUE
+  plot.color = c("grey", "orange", "red"),
+  plot.3d=TRUE,
 )
+rgl.snapshot("snapshot.png")
 
 
 #df <- plot_intensity_finshernet(

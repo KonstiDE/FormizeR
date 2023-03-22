@@ -12,6 +12,7 @@
 #' @param plot logical: Whether to plot the map
 #' @param plot.color vector of characters: Sets the colorscale for the plot
 #' @param plot.scalename character: Displays a name for the scalebar
+#' @param plot.theme ggplot2 theme: Select a theme
 #' @param plot.3d logical: Plots the image in a 3d environment (ignored if plot=FALSE)
 #' @param plot.3d.scale logical: Plots the image in a 3d environment (ignored if plot.3d=FALSE)
 #' @param plot.3d.sunangle numeric: Angle of the shadow in the 3d plot (ignored if plot.3d=FALSE)
@@ -30,6 +31,7 @@ plot_intensity_standard <- function(
   plot=TRUE,
   plot.color=c("white", "blue"),
   plot.scalename="",
+  plot.theme=theme_classic(),
   plot.3d=FALSE,
   plot.3d.scale=100,
   plot.3d.sunangle=360,
@@ -43,7 +45,8 @@ plot_intensity_standard <- function(
   if(plot){
     p <- ggplot(grid[intersection], aes(fill = intensity)) +
       geom_sf(color=if(hex.border) hex.border.color else NA, lwd=hex.border.width) +
-      scale_fill_gradientn(colours=plot.color, name=plot.scalename)
+      scale_fill_gradientn(colours=plot.color, name=plot.scalename) +
+      plot.theme
 
     if(!plot.3d){
       p
@@ -52,6 +55,7 @@ plot_intensity_standard <- function(
       plot_gg(
         p,
         multicore = T,
+        raytrace = T,
         width=5,
         height=5,
         scale=plot.3d.scale,
@@ -59,7 +63,7 @@ plot_intensity_standard <- function(
         offset_edges=T,
         sunangle = plot.3d.sunangle,
         phi = 30,
-        theta = -30
+        theta = -30,
       )
     }
 

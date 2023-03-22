@@ -16,6 +16,7 @@ plot_intensity_standard(
   plot = TRUE,
   plot.color = c("white", "blue"),
   plot.scalename = "",
+  plot.theme = theme_classic(),
   plot.3d = FALSE,
   plot.3d.scale = 100,
   plot.3d.sunangle = 360,
@@ -42,6 +43,8 @@ plot_intensity_standard(
 \item{plot.color}{vector of characters: Sets the colorscale for the plot}
 
 \item{plot.scalename}{character: Displays a name for the scalebar}
+
+\item{plot.theme}{ggplot2 theme: Select a theme}
 
 \item{plot.3d}{logical: Plots the image in a 3d environment (ignored if plot=FALSE)}
 
