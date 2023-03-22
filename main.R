@@ -17,14 +17,16 @@
 load_all("./R/")
 
 
-#plot_intensity_standard(
-#  st_read("data/ger_bakeries.gpkg"),
-#  st_read("data/ger_admin.gpkg"),
-#  cellsize = 0.2,
-#  hex = TRUE,
-#  hex.border = FALSE,
-#  plot=TRUE
-#)
+plot_intensity_standard(
+  st_read("data/ger_bakeries.gpkg"),
+  st_read("data/ger_admin.gpkg"),
+  cellsize = 0.2,
+  hex = TRUE,
+  hex.border = FALSE,
+  plot=TRUE,
+  plot.3d=TRUE
+)
+
 
 #df <- plot_intensity_finshernet(
 #  point_layer,

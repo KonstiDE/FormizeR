@@ -12,19 +12,57 @@
 #' @param plot logical: Whether to plot the map
 #' @param plot.color vector of characters: Sets the colorscale for the plot
 #' @param plot.scalename character: Displays a name for the scalebar
+#' @param plot.3d logical: Plots the image in a 3d environment (ignored if plot=FALSE)
+#' @param plot.3d.scale logical: Plots the image in a 3d environment (ignored if plot.3d=FALSE)
+#' @param plot.3d.sunangle numeric: Angle of the shadow in the 3d plot (ignored if plot.3d=FALSE)
+#' @param plot.3d.shadow_intensity numeric: Intensity of the shadow in the 3d plot (ignored if plot.3d=FALSE)
 #' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
 #' @examples
 #' plot_intensity_standard(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
-plot_intensity_standard <- function(point_layer, shape_layer, cellsize, hex=TRUE, hex.border=TRUE, hex.border.color="black", hex.border.width=0.1, plot=TRUE, plot.color=c("white", "blue"), plot.scalename=""){
+plot_intensity_standard <- function(
+  point_layer,
+  shape_layer,
+  cellsize,
+  hex=TRUE,
+  hex.border=TRUE,
+  hex.border.color="black",
+  hex.border.width=0.1,
+  plot=TRUE,
+  plot.color=c("white", "blue"),
+  plot.scalename="",
+  plot.3d=FALSE,
+  plot.3d.scale=100,
+  plot.3d.sunangle=360,
+  plot.3d.shadow_intensity=0.75
+){
   grid <- st_make_grid(shape_layer, cellsize = cellsize, square = !hex)
 
   intersection <- lengths(st_intersects(grid, shape_layer)) > 0
   intensity <- lengths(st_intersects(grid[intersection], point_layer))
 
   if(plot){
-    ggplot(grid[intersection], aes(fill = intensity)) +
+    p <- ggplot(grid[intersection], aes(fill = intensity)) +
       geom_sf(color=if(hex.border) hex.border.color else NA, lwd=hex.border.width) +
       scale_fill_gradientn(colours=plot.color, name=plot.scalename)
+
+    if(!plot.3d){
+      p
+    }else{
+      rgl.open()
+      plot_gg(
+        p,
+        multicore = T,
+        width=5,
+        height=5,
+        scale=plot.3d.scale,
+        shadow_intensity = plot.3d.shadow_intensity,
+        offset_edges=T,
+        sunangle = plot.3d.sunangle,
+        phi = 30,
+        theta = -30
+      )
+    }
+
   }else{
     return(cbind(as.data.frame(grid[intersection]), intensity))
   }
