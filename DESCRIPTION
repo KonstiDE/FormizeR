@@ -11,5 +11,5 @@ Imports: devtools, sf, ggplot2, raster, rayshader, rgl
 BugReports: https://github.com/KonstiDE/FormizeR/issues
 RoxygenNote: 7.2.3
 Depends: 
-    R (>= 2.10)
+    R (>= 3.5.0)
 LazyData: true
