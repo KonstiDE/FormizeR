@@ -14,7 +14,7 @@
 #   Test Package:              'Ctrl + Shift + T'
 
 
-load_all("./R/")
+load_all("R/")
 
 
 #plot_intensity_finshernet(
