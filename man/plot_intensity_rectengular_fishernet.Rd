@@ -14,7 +14,12 @@ plot_intensity_rectengular_fishernet(
   net.border.width = 1,
   plot = TRUE,
   plot.colors = c("grey", "orange", "red"),
-  plot.scalename = ""
+  plot.scalename = "",
+  plot.theme = theme_classic(),
+  plot.3d = FALSE,
+  plot.3d.scale = 100,
+  plot.3d.sunangle = 360,
+  plot.3d.shadow_intensity = 0.75
 )
 }
 \arguments{
@@ -35,6 +40,14 @@ plot_intensity_rectengular_fishernet(
 \item{plot.colors}{vector of characters: Sets the colorscale for the plot}
 
 \item{plot.scalename}{character: Displays a name for the scalebar}
+
+\item{plot.3d}{logical: Plots the image in a 3d environment (ignored if plot=FALSE)}
+
+\item{plot.3d.scale}{logical: Plots the image in a 3d environment (ignored if plot.3d=FALSE)}
+
+\item{plot.3d.sunangle}{numeric: Angle of the shadow in the 3d plot (ignored if plot.3d=FALSE)}
+
+\item{plot.3d.shadow_intensity}{numeric: Intensity of the shadow in the 3d plot (ignored if plot.3d=FALSE)}
 }
 \value{
 data.frame: With column geometry (sf polygons) and intensity (numerics)

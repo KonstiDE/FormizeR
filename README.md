@@ -63,5 +63,25 @@ it provides, such as:
 > plot_intensity_fishernet(...)\
 > plot_intensity_trinagles_left(...)\
 > plot_intensity_triangles_right(...)\
+> plot_intensity_rectengular_fisher(...)\
+
+# 3D Plots
+Creating a 3d plot of your intensity map with FormizeR is easy. Just set the plot and plot.3d both
+to `TRUE`. This will result in a rgl window. Position it the way you like it and call `rgl.snapshot("snapshot.png")`
+to save you beautiful 3d plot. We depict a minimal example for a 3d plot made with FormizeR
+in the following snippet:
+
+```R
+plot_intensity_standard(
+  ger_points,
+  ger_admin,
+  cellsize = 0.5,
+  hex.border = FALSE,
+  plot.color = c("grey", "orange", "red"),
+  plot.3d=TRUE,
+)
+rgl.snapshot("snapshot.png")
+```
+
 
 

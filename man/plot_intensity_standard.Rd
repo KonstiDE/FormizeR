@@ -14,7 +14,7 @@ plot_intensity_standard(
   hex.border.color = "black",
   hex.border.width = 0.1,
   plot = TRUE,
-  plot.color = c("white", "blue"),
+  plot.colors = c("white", "blue"),
   plot.scalename = "",
   plot.theme = theme_classic(),
   plot.3d = FALSE,
@@ -40,8 +40,6 @@ plot_intensity_standard(
 
 \item{plot}{logical: Whether to plot the map}
 
-\item{plot.color}{vector of characters: Sets the colorscale for the plot}
-
 \item{plot.scalename}{character: Displays a name for the scalebar}
 
 \item{plot.theme}{ggplot2 theme: Select a theme}
@@ -53,6 +51,8 @@ plot_intensity_standard(
 \item{plot.3d.sunangle}{numeric: Angle of the shadow in the 3d plot (ignored if plot.3d=FALSE)}
 
 \item{plot.3d.shadow_intensity}{numeric: Intensity of the shadow in the 3d plot (ignored if plot.3d=FALSE)}
+
+\item{plot.color}{vector of characters: Sets the colorscale for the plot}
 }
 \value{
 data.frame: With column geometry (sf polygons) and intensity (numerics)

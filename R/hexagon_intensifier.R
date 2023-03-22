@@ -29,7 +29,7 @@ plot_intensity_standard <- function(
   hex.border.color="black",
   hex.border.width=0.1,
   plot=TRUE,
-  plot.color=c("white", "blue"),
+  plot.colors=c("white", "blue"),
   plot.scalename="",
   plot.theme=theme_classic(),
   plot.3d=FALSE,
@@ -45,7 +45,7 @@ plot_intensity_standard <- function(
   if(plot){
     p <- ggplot(grid[intersection], aes(fill = intensity)) +
       geom_sf(color=if(hex.border) hex.border.color else NA, lwd=hex.border.width) +
-      scale_fill_gradientn(colours=plot.color, name=plot.scalename) +
+      scale_fill_gradientn(colours=plot.colors, name=plot.scalename) +
       plot.theme
 
     if(!plot.3d){
@@ -62,6 +62,7 @@ plot_intensity_standard <- function(
         shadow_intensity = plot.3d.shadow_intensity,
         offset_edges=T,
         sunangle = plot.3d.sunangle,
+        zoom = 0.5,
         phi = 30,
         theta = -30,
       )

@@ -17,17 +17,15 @@
 load_all("./R/")
 
 
-plot_intensity_standard(
-  st_read("data/ger_bakeries.gpkg"),
-  st_read("data/ger_admin.gpkg"),
-  cellsize = 0.2,
-  hex = TRUE,
-  hex.border = FALSE,
-  plot=TRUE,
-  plot.color = c("grey", "orange", "red"),
-  plot.3d=TRUE,
-)
-rgl.snapshot("snapshot.png")
+#plot_intensity_finshernet(
+#  st_read("data/ger_bakeries.gpkg"),
+#  st_read("data/ger_admin.gpkg"),
+#  cellsize = 0.5,
+#  net.border = FALSE,
+#  plot.color = c("grey", "orange", "red"),
+#  plot.3d=TRUE,
+#)
+#rgl.snapshot("snapshot.png")
 
 
 #df <- plot_intensity_finshernet(

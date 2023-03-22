@@ -45,6 +45,10 @@ position_rectengular_fisher <- function(m, crs, offset_x, offset_y){
 #' @param plot logical: Whether to plot the map
 #' @param plot.colors vector of characters: Sets the colorscale for the plot
 #' @param plot.scalename character: Displays a name for the scalebar
+#' @param plot.3d logical: Plots the image in a 3d environment (ignored if plot=FALSE)
+#' @param plot.3d.scale logical: Plots the image in a 3d environment (ignored if plot.3d=FALSE)
+#' @param plot.3d.sunangle numeric: Angle of the shadow in the 3d plot (ignored if plot.3d=FALSE)
+#' @param plot.3d.shadow_intensity numeric: Intensity of the shadow in the 3d plot (ignored if plot.3d=FALSE)
 #' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
 #' @examples
 #' plot_intensity_diamond(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
@@ -57,7 +61,12 @@ plot_intensity_diamond <- function(
   net.border.width=1,
   plot=TRUE,
   plot.colors=c("grey", "orange", "red"),
-  plot.scalename=""
+  plot.scalename="",
+  plot.theme=theme_classic(),
+  plot.3d=FALSE,
+  plot.3d.scale=100,
+  plot.3d.sunangle=360,
+  plot.3d.shadow_intensity=0.75
 ){
   grid_extent <- extent(point_layer)
   grid_crs <- crs(point_layer)
@@ -83,7 +92,7 @@ plot_intensity_diamond <- function(
     if(starting_x == 0){
       starting_x <- cellsize / 2
     }else{
-      starting_x <- 0;
+      starting_x <- 0
     }
   }
   diamond_sf <- sf::st_sf(as.data.frame(do.call(rbind, diamond_list)), crs = grid_crs)
@@ -93,11 +102,33 @@ plot_intensity_diamond <- function(
   intensity <- lengths(st_intersects(diamond_sf[intersection], point_layer))
 
   if(plot){
-    ggplot(diamond_sf[intersection], aes(fill = intensity)) +
+    p <- ggplot(diamond_sf[intersection], aes(fill = intensity)) +
       geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width) +
-      scale_fill_gradientn(colours=plot.colors, name=plot.scalename)
+      scale_fill_gradientn(colours=plot.colors, name=plot.scalename) +
+      plot.theme
+
+    if(!plot.3d){
+      p
+    }else{
+      rgl.open()
+      plot_gg(
+        p,
+        multicore = T,
+        raytrace = T,
+        width=5,
+        height=5,
+        scale=plot.3d.scale,
+        shadow_intensity = plot.3d.shadow_intensity,
+        offset_edges=T,
+        sunangle = plot.3d.sunangle,
+        zoom = 0.5,
+        phi = 30,
+        theta = -30,
+      )
+    }
+
   }else{
-    return(cbind(as.data.frame(fishernet_sf[intersection]), intensity))
+    return(cbind(as.data.frame(grid[intersection]), intensity))
   }
 }
 
@@ -115,6 +146,10 @@ plot_intensity_diamond <- function(
 #' @param plot logical: Whether to plot the map
 #' @param plot.colors vector of characters: Sets the colorscale for the plot
 #' @param plot.scalename character: Displays a name for the scalebar
+#' @param plot.3d logical: Plots the image in a 3d environment (ignored if plot=FALSE)
+#' @param plot.3d.scale logical: Plots the image in a 3d environment (ignored if plot.3d=FALSE)
+#' @param plot.3d.sunangle numeric: Angle of the shadow in the 3d plot (ignored if plot.3d=FALSE)
+#' @param plot.3d.shadow_intensity numeric: Intensity of the shadow in the 3d plot (ignored if plot.3d=FALSE)
 #' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
 #' @examples
 #' plot_intensity_rectengular_fishernet(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
@@ -127,7 +162,12 @@ plot_intensity_rectengular_fishernet <- function(
   net.border.width=1,
   plot=TRUE,
   plot.colors=c("grey", "orange", "red"),
-  plot.scalename=""
+  plot.scalename="",
+  plot.theme=theme_classic(),
+  plot.3d=FALSE,
+  plot.3d.scale=100,
+  plot.3d.sunangle=360,
+  plot.3d.shadow_intensity=0.75
 ){
   grid_extent <- extent(point_layer)
   grid_crs <- crs(point_layer)
@@ -175,11 +215,33 @@ plot_intensity_rectengular_fishernet <- function(
   intensity <- lengths(st_intersects(rectfisher_sf[intersection], point_layer))
 
   if(plot){
-    ggplot(rectfisher_sf[intersection], aes(fill = intensity)) +
+    p <- ggplot(rectfisher_list[intersection], aes(fill = intensity)) +
       geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width) +
-      scale_fill_gradientn(colours=plot.colors, name=plot.scalename)
+      scale_fill_gradientn(colours=plot.colors, name=plot.scalename) +
+      plot.theme
+
+    if(!plot.3d){
+      p
+    }else{
+      rgl.open()
+      plot_gg(
+        p,
+        multicore = T,
+        raytrace = T,
+        width=5,
+        height=5,
+        scale=plot.3d.scale,
+        shadow_intensity = plot.3d.shadow_intensity,
+        offset_edges=T,
+        sunangle = plot.3d.sunangle,
+        zoom = 0.5,
+        phi = 30,
+        theta = -30,
+      )
+    }
+
   }else{
-    return(cbind(as.data.frame(fishernet_sf[intersection]), intensity))
+    return(cbind(as.data.frame(grid[intersection]), intensity))
   }
 }
 
