@@ -140,7 +140,6 @@ plot_intensity_finshernet <- function(
       plot_gg(
         p,
         multicore = T,
-        raytrace = T,
         width=5,
         height=5,
         scale=plot.3d.scale,
@@ -237,7 +236,6 @@ plot_intensity_triangular_left <- function(
       plot_gg(
         p,
         multicore = T,
-        raytrace = T,
         width=5,
         height=5,
         scale=plot.3d.scale,
@@ -337,7 +335,6 @@ plot_intensity_triangular_right <- function(
       plot_gg(
         p,
         multicore = T,
-        raytrace = T,
         width=5,
         height=5,
         scale=plot.3d.scale,

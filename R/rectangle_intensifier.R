@@ -114,7 +114,6 @@ plot_intensity_diamond <- function(
       plot_gg(
         p,
         multicore = T,
-        raytrace = T,
         width=5,
         height=5,
         scale=plot.3d.scale,
@@ -227,7 +226,6 @@ plot_intensity_rectengular_fishernet <- function(
       plot_gg(
         p,
         multicore = T,
-        raytrace = T,
         width=5,
         height=5,
         scale=plot.3d.scale,
