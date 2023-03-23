@@ -79,9 +79,9 @@ A list of all methods can be found below as FormizeR provides:
 > plot_intensity_triangular_left(...)\
 > plot_intensity_triangular_right(...)
 
-|   ...standard(hex=TRUE)    | ...standard(hex=FALSE)  |
-|:--------------------------:|:-----------------------:|
-| <img src="readme/hex.png"> |  <img src="rects.png">  |
+|   ...standard(hex=TRUE)    |    ...standard(hex=FALSE)    |      ...standard(hex=FALSE)      |
+|:--------------------------:|:----------------------------:|:--------------------------------:|
+| <img src="readme/hex.png"> | <img src="readme/rects.png"> | <img src="readme/fishernet.png"> |
 
 # 3D Plots
 Creating a 3d plot of your intensity map with FormizeR is easy. Just set the plot and plot.3d both
