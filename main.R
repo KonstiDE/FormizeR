@@ -13,6 +13,14 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
+#'@section Dependencies:
+#'  \describe {
+#'    \item{ggplot2}
+#'    \item{raster}
+#'    \item{sf}
+#'    \item{rayshader}
+#'    \item{rgl}
+#'  }
 
 load_all("R/")
 
