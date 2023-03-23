@@ -19,7 +19,7 @@ library(rgl)
 ## Exemplary Usage
 Using the FormizeR plugin is easy, as FormizeR directly provides you 
 with exemplary data to test its potential and get familiar with
-the styling options. Mandatory are a point layer and a shape layer (both provided inside the package) as well as the cellsize, 
+the styling options. Mandatory are a point layer and a shape layer (both provided inside the package) and the cellsize, 
 determining the size of the form. The standard method with minimal parameters goes as follows:
 
 ```R
@@ -71,18 +71,13 @@ ggplot(data = df$geometry, aes(df$intensity)) +
     scale_fill_gradientn(colours = c("purple", "orange", "red"))
 ```
 
-The following table depicts examples what can be done with the library with different methods
-it provides, such as:
-
-
-| ..._standard(hex=T) |  ..._standard(hex=F)  |     ..._finshernet()      |      ..._diamond()      |
-|:-------------------:|:---------------------:|:-------------------------:|:-----------------------:|
-| ![](readme/hex.png) | ![](readme/rects.png) | ![](readme/fishernet.png) | ![](readme/diamond.png) |
-
-|   ..._rectengular_fishernet()   |     ..._triangular_left()     |      _triangular_right()       |
-|:-------------------------------:|:-----------------------------:|:------------------------------:|
-| ![](readme/fishernet_rects.png) | ![](readme/triangle_left.png) | ![](readme/triangle_right.png) |
-
+A list of all methods can be found below as FormizeR provides:
+> plot_intensity_diamond(...)\
+> plot_intensity_fishernet(...)\
+> plot_intensity_rectengular_fishernet(...)\
+> plot_intensity_standard(...)\
+> plot_intensity_triangular_left(...)\
+> plot_intensity_triangular_right(...)
 
 # 3D Plots
 Creating a 3d plot of your intensity map with FormizeR is easy. Just set the plot and plot.3d both
@@ -96,11 +91,17 @@ plot_intensity_standard(
   ger_admin,
   cellsize = 0.5,
   hex.border = FALSE,
-  plot.color = c("grey", "orange", "red"),
+  plot.color = c("purple", "orange", "red"),
   plot.3d=TRUE,
 )
 rgl.snapshot("snapshot.png")
 ```
+The output then can look somewhat like the following images:
+
+| ..._standard(plot3d=TRUE) | ...fishernet(plot3d=TRUE) |
+|:-------------------------:|:--------------------------|
+| ![3d](readme/hex_3d.png)  | ![3d](readme/fish_3d.png) |
+
 
 
 

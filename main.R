@@ -16,13 +16,15 @@
 load_all("R/")
 
 
-#plot_intensity_diamond(
-#  st_read("data/ger_bakeries.gpkg"),
-#  st_read("data/ger_admin.gpkg"),
-#  cellsize = 0.4,
-#  net.border = FALSE,
-#  plot.color = c("grey", "orange", "red")
-#)
+plot_intensity_standard(
+  ger_points,
+  ger_admin,
+  cellsize = 0.5,
+  hex.border = FALSE,
+  plot.color = c("purple", "orange", "red"),
+  plot.3d=TRUE,
+)
+snapshot3d("readme/hex_3d.png")
 
 
 #df <- plot_intensity_finshernet(
