@@ -20,6 +20,10 @@
 #' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
 #' @examples
 #' plot_intensity_standard(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
+#' @import sf
+#' @import ggplot
+#' @import rayshader
+#' @import rgl
 plot_intensity_standard <- function(
   point_layer,
   shape_layer,
