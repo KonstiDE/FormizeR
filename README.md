@@ -87,6 +87,10 @@ A list of all methods can be found below as FormizeR provides:
 |:----------------------------------------------------:|:--------------------------------------------------:|:----------------------------------------------------:|
 | <img src="readme/fishernet_rects.png" width="200px"> | <img src="readme/triangle_left.png" width="200px"> | <img src="readme/triangle_right.png" width="200px">  |
 
+|               ...diamond(...)                | More forms coming soon |
+|:--------------------------------------------:|:----------------------:|
+| <img src="readme/diamond.png" width="200px"> |                        |
+
 # 3D Plots
 Creating a 3d plot of your intensity map with FormizeR is easy. Just set the plot and plot.3d both
 to `TRUE`. This will result in a rgl window. Position it the way you like it and call `rgl.snapshot("snapshot.png")`
