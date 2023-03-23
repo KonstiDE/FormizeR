@@ -13,27 +13,16 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
-#'@section Dependencies:
-#'  \describe {
-#'    \item{ggplot2}
-#'    \item{raster}
-#'    \item{sf}
-#'    \item{rayshader}
-#'    \item{rgl}
-#'  }
-
 load_all("R/")
 
 
-#plot_intensity_finshernet(
+#plot_intensity_diamond(
 #  st_read("data/ger_bakeries.gpkg"),
 #  st_read("data/ger_admin.gpkg"),
-#  cellsize = 0.5,
+#  cellsize = 0.4,
 #  net.border = FALSE,
-#  plot.color = c("grey", "orange", "red"),
-#  plot.3d=TRUE,
+#  plot.color = c("grey", "orange", "red")
 #)
-#rgl.snapshot("snapshot.png")
 
 
 #df <- plot_intensity_finshernet(

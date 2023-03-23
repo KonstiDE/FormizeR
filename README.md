@@ -4,27 +4,36 @@ visual overviews for point intensities with different shapes.
 
 ## Installation
 For installing the FormizeR package, install the newest of the ``devtools`` or
-``remotes`` package. Then go ahead with ``devtools/remotes::install_github("KonstiDE/FormizeR")`` or with and load it via 
-``library(FormizeR)``
+``remotes`` package. Then go ahead with
+```R
+devtools/remotes::install_github("KonstiDE/FormizeR", dependencies = T)
+library(FormizeR)
+
+library(ggplot2)
+library(raster)
+library(sf)
+library(rayshader)
+library(rgl)
+```
 
 ## Exemplary Usage
 Using the FormizeR plugin is easy, as FormizeR directly provides you 
-with exemplary data to test our its potential and get familiar with
-the styling options. Mandatory are a point layer, a shape layer (both provided inside the package) and a cellsize, 
+with exemplary data to test its potential and get familiar with
+the styling options. Mandatory are a point layer and a shape layer (both provided inside the package) as well as the cellsize, 
 determining the size of the form. The standard method with minimal parameters goes as follows:
 
 ```R
 plot_intensity_standard(
-    ger_points,                 #provided by FormizeR
-    ger_admin,                  #provided by FormizeR
-    cellsize = 0.3              #size of the form
+    ger_points,              #provided by FormizeR
+    ger_admin,               #provided by FormizeR
+    cellsize = 0.3           #size of the form
 )
 ```
 
 This will plot the bakery-intensity of germany in hexagons, with a default
 color scale of white to blue. However, to style your plot, FormizeR provides
 you with a lot of parameters. Mandatory parameters are bold and cursive, not mandatory ones with their default
-values only bold:
+values are bold only:
 
 > ***point_layer*** sf object: An sf object containing points.\
 > ***shape_layer*** sf object: An sf object consisting of a polygon.\
@@ -35,13 +44,19 @@ values only bold:
 > **hex.border.width** numeric=1\
 > **plot** logical=TRUE\
 > **plot.color** vector of characters=c("white", "blue")\
-> **plot.scalename** character='':
+> **plot.scalename** character=''\
+> **plot.theme** ggplot2-theme=theme_bw()\
+> **plot.3d** logical=FALSE\
+> **plot.3d.scale** numeric=100\
+> **plot.3d.sunangle** numeric=360 
+> **plot.3d.shadow_intensity** numeric=0.75 
 
 Anyhow, one thinks that the parameters are not sufficient to create the plot
-you are aiming for, you simply set ``plot=FALSE`` and collect the dataframe
-from ``plot_intensity_[...]`` method and plot in yourself via the famous
-``ggplot`` package. The resulting dataframe consists of a geometry and intensity
-column containing the polygons and sums of the points for each form respectively:
+you are aiming for, you simply set ``plot=FALSE`` and save the dataframe returned
+by the ``plot_intensity_[...]`` method and plot it yourself via the famous
+``ggplot`` package. The resulting dataframe consists of a `geometry` and `intensity`
+column containing the polygons and sums of the points for each form respectively. The following
+snippet shows an example of how to plot the FormizeR result with a custom plot:
 
 ```R
 df <- plot_intensity_standard(
@@ -51,19 +66,23 @@ df <- plot_intensity_standard(
     plot=FALSE
 )
 
-ggplot(data = df$geometry, mapping = aes(df$intensity)) + 
+ggplot(data = df$geometry, aes(df$intensity)) + 
     geom_sf(color=NA) + 
-    scale_fill_gradient(colours = c("white", "purple", "blue", "black"))
+    scale_fill_gradientn(colours = c("purple", "orange", "red"))
 ```
 
 The following table depicts examples what can be done with the library with different methods
 it provides, such as:
 
-> plot_intensity_standard(...)\
-> plot_intensity_fishernet(...)\
-> plot_intensity_trinagles_left(...)\
-> plot_intensity_triangles_right(...)\
-> plot_intensity_rectengular_fisher(...)\
+
+| ..._standard(hex=T) |  ..._standard(hex=F)  |     ..._finshernet()      |      ..._diamond()      |
+|:-------------------:|:---------------------:|:-------------------------:|:-----------------------:|
+| ![](readme/hex.png) | ![](readme/rects.png) | ![](readme/fishernet.png) | ![](readme/diamond.png) |
+
+|   ..._rectengular_fishernet()   |     ..._triangular_left()     |      _triangular_right()       |
+|:-------------------------------:|:-----------------------------:|:------------------------------:|
+| ![](readme/fishernet_rects.png) | ![](readme/triangle_left.png) | ![](readme/triangle_right.png) |
+
 
 # 3D Plots
 Creating a 3d plot of your intensity map with FormizeR is easy. Just set the plot and plot.3d both

@@ -115,7 +115,7 @@ plot_intensity_diamond <- function(
     if(!plot.3d){
       p
     }else{
-      rgl.open()
+      open3d()
       plot_gg(
         p,
         multicore = T,
@@ -224,7 +224,7 @@ plot_intensity_rectengular_fishernet <- function(
   intensity <- lengths(st_intersects(rectfisher_sf[intersection], point_layer))
 
   if(plot){
-    p <- ggplot(rectfisher_list[intersection], aes(fill = intensity)) +
+    p <- ggplot(rectfisher_sf[intersection], aes(fill = intensity)) +
       geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width) +
       scale_fill_gradientn(colours=plot.colors, name=plot.scalename) +
       plot.theme
@@ -232,7 +232,7 @@ plot_intensity_rectengular_fishernet <- function(
     if(!plot.3d){
       p
     }else{
-      rgl.open()
+      open3d()
       plot_gg(
         p,
         multicore = T,

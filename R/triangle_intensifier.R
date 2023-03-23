@@ -81,13 +81,13 @@ position_triangle_right <- function(m, crs, cellsize, height, offset_x, offset_y
 #' @param plot.3d.shadow_intensity numeric: Intensity of the shadow in the 3d plot (ignored if plot.3d=FALSE)
 #' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
 #' @examples
-#' plot_intensity_finshernet(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
+#' plot_intensity_fishernet(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
 #' @import raster
 #' @import sf
 #' @import ggplot2
 #' @import rayshader
 #' @import rgl
-plot_intensity_finshernet <- function(
+plot_intensity_fishernet <- function(
   point_layer,
   shape_layer,
   cellsize,
@@ -141,7 +141,7 @@ plot_intensity_finshernet <- function(
     if(!plot.3d){
       p
     }else{
-      rgl.open()
+      open3d()
       plot_gg(
         p,
         multicore = T,
@@ -242,7 +242,7 @@ plot_intensity_triangular_left <- function(
     if(!plot.3d){
       p
     }else{
-      rgl.open()
+      open3d()
       plot_gg(
         p,
         multicore = T,
@@ -346,7 +346,7 @@ plot_intensity_triangular_right <- function(
     if(!plot.3d){
       p
     }else{
-      rgl.open()
+      open3d()
       plot_gg(
         p,
         multicore = T,

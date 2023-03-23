@@ -55,7 +55,7 @@ plot_intensity_standard <- function(
     if(!plot.3d){
       p
     }else{
-      rgl.open()
+      open3d()
       plot_gg(
         p,
         multicore = T,
