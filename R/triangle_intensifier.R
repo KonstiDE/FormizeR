@@ -84,7 +84,7 @@ position_triangle_right <- function(m, crs, cellsize, height, offset_x, offset_y
 #' plot_intensity_finshernet(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
 #' @import raster
 #' @import sf
-#' @import ggplot
+#' @import ggplot2
 #' @import rayshader
 #' @import rgl
 plot_intensity_finshernet <- function(
@@ -184,7 +184,7 @@ plot_intensity_finshernet <- function(
 #' plot_intensity_triangular_left(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
 #' @import raster
 #' @import sf
-#' @import ggplot
+#' @import ggplot2
 #' @import rayshader
 #' @import rgl
 plot_intensity_triangular_left <- function(
@@ -285,7 +285,7 @@ plot_intensity_triangular_left <- function(
 #' plot_intensity_triangular_right(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
 #' @import raster
 #' @import sf
-#' @import ggplot
+#' @import ggplot2
 #' @import rayshader
 #' @import rgl
 plot_intensity_triangular_right <- function(

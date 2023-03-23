@@ -54,7 +54,7 @@ position_rectengular_fisher <- function(m, crs, offset_x, offset_y){
 #' plot_intensity_diamond(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
 #' @import raster
 #' @import sf
-#' @import ggplot
+#' @import ggplot2
 #' @import rayshader
 #' @import rgl
 plot_intensity_diamond <- function(
@@ -159,7 +159,7 @@ plot_intensity_diamond <- function(
 #' plot_intensity_rectengular_fishernet(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
 #' @import raster
 #' @import sf
-#' @import ggplot
+#' @import ggplot2
 #' @import rayshader
 #' @import rgl
 plot_intensity_rectengular_fishernet <- function(

@@ -21,7 +21,7 @@
 #' @examples
 #' plot_intensity_standard(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
 #' @import sf
-#' @import ggplot
+#' @import ggplot2
 #' @import rayshader
 #' @import rgl
 plot_intensity_standard <- function(
