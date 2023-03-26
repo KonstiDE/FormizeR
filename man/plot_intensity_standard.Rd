@@ -3,7 +3,7 @@
 \name{plot_intensity_standard}
 \alias{plot_intensity_standard}
 \title{: plot_intensity_standard
-Calculate and plot intensity maps with a hexagonial or rectangular shapes.}
+Calculate and plot intensity maps with a hexagonial or rectangular shape.}
 \usage{
 plot_intensity_standard(
   point_layer,
@@ -43,6 +43,8 @@ plot_intensity_standard(
 
 \item{plot}{logical: Whether to plot the map}
 
+\item{plot.colors}{vector of characters: Sets the colorscale for the plot}
+
 \item{plot.scalename}{character: Displays a name for the scalebar}
 
 \item{plot.theme}{ggplot2 theme: Select a theme}
@@ -54,16 +56,14 @@ plot_intensity_standard(
 \item{plot.3d.sunangle}{numeric: Angle of the shadow in the 3d plot (ignored if plot.3d=FALSE)}
 
 \item{plot.3d.shadow_intensity}{numeric: Intensity of the shadow in the 3d plot (ignored if plot.3d=FALSE)}
-
-\item{plot.color}{vector of characters: Sets the colorscale for the plot}
 }
 \value{
 data.frame: With column geometry (sf polygons) and intensity (numerics)
 }
 \description{
 : plot_intensity_standard
-Calculate and plot intensity maps with a hexagonial or rectangular shapes.
+Calculate and plot intensity maps with a hexagonial or rectangular shape.
 }
 \examples{
-plot_intensity_standard(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
+plot_intensity_standard(ger_points, ger_shape, cellsize=0.3, hex=TRUE, plot=TRUE)
 }

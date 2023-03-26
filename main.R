@@ -16,7 +16,7 @@
 load_all("R/")
 
 
-plot_intensity_standard(
+plot_(
   ger_points,
   ger_admin,
   cellsize = 0.5,
