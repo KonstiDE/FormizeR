@@ -39,6 +39,7 @@ position_rectengular_fisher <- function(m, crs, offset_x, offset_y){
 #' @param point_layer sf object: An sf object containing points.
 #' @param shape_layer sf object: An sf object consisting of a polygon.
 #' @param cellsize numeric: Size of the diamonds of the net.
+#' @param net.alpha numeric: Between 0 and 1 for opacity controlling
 #' @param net.border logical: Determines if borders of the forms will be drawn
 #' @param net.border.color character: Sets the color of the outlines (ignored if hex.border=FALSE)
 #' @param net.border.width numeric: Sets the width of the outlines (ignored if hex.border=FALSE)
@@ -61,6 +62,7 @@ plot_intensity_diamond <- function(
   point_layer,
   shape_layer,
   cellsize,
+  net.alpha=1.0,
   net.border=TRUE,
   net.border.color="black",
   net.border.width=1,
@@ -108,7 +110,7 @@ plot_intensity_diamond <- function(
 
   if(plot){
     p <- ggplot(diamond_sf[intersection], aes(fill = intensity)) +
-      geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width) +
+      geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width, alpha=net.alpha) +
       scale_fill_gradientn(colours=plot.colors, name=plot.scalename) +
       plot.theme
 
@@ -144,6 +146,7 @@ plot_intensity_diamond <- function(
 #' @param point_layer sf object: An sf object containing points.
 #' @param shape_layer sf object: An sf object consisting of a polygon.
 #' @param cellsize numeric: Size of the diamonds of the net.
+#' @param net.alpha numeric: Between 0 and 1 for opacity controlling
 #' @param net.border logical: Determines if borders of the forms will be drawn
 #' @param net.border.color character: Sets the color of the outlines (ignored if hex.border=FALSE)
 #' @param net.border.width numeric: Sets the width of the outlines (ignored if hex.border=FALSE)
@@ -166,6 +169,7 @@ plot_intensity_rectengular_fishernet <- function(
   point_layer,
   shape_layer,
   cellsize,
+  net.alpha=1.0,
   net.border=TRUE,
   net.border.color="black",
   net.border.width=1,
@@ -225,7 +229,7 @@ plot_intensity_rectengular_fishernet <- function(
 
   if(plot){
     p <- ggplot(rectfisher_sf[intersection], aes(fill = intensity)) +
-      geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width) +
+      geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width, alpha=net.alpha) +
       scale_fill_gradientn(colours=plot.colors, name=plot.scalename) +
       plot.theme
 

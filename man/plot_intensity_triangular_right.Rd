@@ -13,6 +13,7 @@ plot_intensity_triangular_right(
   net.border.color = "black",
   net.border.width = 1,
   plot = TRUE,
+  net.alpha = 1,
   plot.colors = c("purple", "orange", "red"),
   plot.scalename = "",
   plot.theme = theme_classic(),
@@ -36,6 +37,8 @@ plot_intensity_triangular_right(
 \item{net.border.width}{numeric: Sets the width of the outlines (ignored if hex.border=FALSE)}
 
 \item{plot}{logical: Whether to plot the map}
+
+\item{net.alpha}{numeric: Between 0 and 1 for opacity controlling}
 
 \item{plot.colors}{vector of characters: Sets the colorscale for the plot}
 

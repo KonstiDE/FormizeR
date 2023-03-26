@@ -10,9 +10,10 @@ plot_intensity_standard(
   shape_layer,
   cellsize,
   hex = TRUE,
-  hex.border = TRUE,
-  hex.border.color = "black",
-  hex.border.width = 0.1,
+  net.alpha = 1,
+  net.border = TRUE,
+  net.border.color = "black",
+  net.border.width = 0.1,
   plot = TRUE,
   plot.colors = c("white", "blue"),
   plot.scalename = "",
@@ -32,11 +33,13 @@ plot_intensity_standard(
 
 \item{hex}{logical: If TRUE, will do hexagon, rectangles if FALSE}
 
-\item{hex.border}{logical: Determines if borders of the forms will be drawn}
+\item{net.alpha}{numeric: Between 0 and 1 for opacity controlling}
 
-\item{hex.border.color}{character: Sets the color of the outlines (ignored if hex.border=FALSE)}
+\item{net.border}{logical: Determines if borders of the forms will be drawn}
 
-\item{hex.border.width}{numeric: Sets the width of the outlines (ignored if hex.border=FALSE)}
+\item{net.border.color}{character: Sets the color of the outlines (ignored if hex.border=FALSE)}
+
+\item{net.border.width}{numeric: Sets the width of the outlines (ignored if hex.border=FALSE)}
 
 \item{plot}{logical: Whether to plot the map}
 

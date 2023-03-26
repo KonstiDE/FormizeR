@@ -20,9 +20,10 @@ plot_intensity_standard(
   ger_points,
   ger_admin,
   cellsize = 0.5,
-  hex.border = FALSE,
+  net.alpha = 0.1,
+  net.border = FALSE,
   plot.color = c("purple", "orange", "red"),
-  plot.3d=TRUE,
+  plot.theme = theme_dark()
 )
 snapshot3d("readme/hex_3d.png")
 
