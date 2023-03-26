@@ -23,6 +23,7 @@ plot_intensity_bubbles(
   plot.color = c("grey", "orange", "red"),
   plot.theme = theme_classic()
 )
+
 snapshot3d("readme/hex_3d.png")
 
 
