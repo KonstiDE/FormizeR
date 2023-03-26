@@ -6,9 +6,10 @@
 #' @param shape_layer sf object: An sf object consisting of a polygon.
 #' @param cellsize numeric: Size of the hexagons / rectangles.
 #' @param hex logical: If TRUE, will do hexagon, rectangles if FALSE
-#' @param hex.border logical: Determines if borders of the forms will be drawn
-#' @param hex.border.color character: Sets the color of the outlines (ignored if hex.border=FALSE)
-#' @param hex.border.width numeric: Sets the width of the outlines (ignored if hex.border=FALSE)
+#' @param net.alpha numeric: Between 0 and 1 for opacity controlling
+#' @param net.border logical: Determines if borders of the forms will be drawn
+#' @param net.border.color character: Sets the color of the outlines (ignored if hex.border=FALSE)
+#' @param net.border.width numeric: Sets the width of the outlines (ignored if hex.border=FALSE)
 #' @param plot logical: Whether to plot the map
 #' @param plot.color vector of characters: Sets the colorscale for the plot
 #' @param plot.scalename character: Displays a name for the scalebar
@@ -29,9 +30,10 @@ plot_intensity_standard <- function(
   shape_layer,
   cellsize,
   hex=TRUE,
-  hex.border=TRUE,
-  hex.border.color="black",
-  hex.border.width=0.1,
+  net.alpha=1.0,
+  net.border=TRUE,
+  net.border.color="black",
+  net.border.width=0.1,
   plot=TRUE,
   plot.colors=c("white", "blue"),
   plot.scalename="",
@@ -48,7 +50,7 @@ plot_intensity_standard <- function(
 
   if(plot){
     p <- ggplot(grid[intersection], aes(fill = intensity)) +
-      geom_sf(color=if(hex.border) hex.border.color else NA, lwd=hex.border.width) +
+      geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width, alpha = net.alpha) +
       scale_fill_gradientn(colours=plot.colors, name=plot.scalename) +
       plot.theme
 

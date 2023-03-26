@@ -1,11 +1,9 @@
 plot_intensity_bubbles <- function(
   point_layer,
   shape_layer,
-  cellsize,
-  hex=TRUE,
-  hex.border=TRUE,
-  hex.border.color="black",
-  hex.border.width=0.1,
+  shape=TRUE,
+  shape.fill.color="grey",
+  shape.border.color="black",
   plot=TRUE,
   plot.colors=c("white", "blue"),
   plot.scalename="",
@@ -15,13 +13,7 @@ plot_intensity_bubbles <- function(
   plot.3d.sunangle=360,
   plot.3d.shadow_intensity=0.75
 ){
-  point_layer = st_read("data/ger_bakeries.gpkg")
-  shape_layer = st_read("data/ger_admin.gpkg")
-
   grid_crs <- crs(point_layer)
-
-  #point_layer_buffered = st_buffer(point_layer, 5000, endCapStyle = 'ROUND')
-  #counts <- st_contains(point_layer_buffered, point_layer, sparse = F)
 
   coord_df <- st_coordinates(point_layer$geom)
   coord_df <- coord_df[,1:2]
@@ -37,11 +29,42 @@ plot_intensity_bubbles <- function(
       length(spatialrisk::points_in_circle(coord_df, lon_center=coord_df$lon[i], lat_center=coord_df$lat[i], radius = 10000)[,1])
     )
   }
+  coord_df$count <- intensity_list
+  coord_df <- coord_df[order(coord_df$count),]
+
+  intensity_list <- coord_df$count
 
   coord_sf <- st_as_sf(coord_df, coords = c("lon", "lat"), crs = grid_crs)
 
-  ggplot() +
-    geom_sf(data = coord_sf, aes(color=intensity_list, size = intensity_list)) +
-    scale_color_gradientn(colors = c("grey", "orange", "red"))
+  if(plot){
+    p <- ggplot()
+
+    if(shape){
+      p <- p + geom_sf(data = shape_layer, color=shape.border.color, aes(fill=shape.fill.color))
+    }
+    p <- p + geom_sf(data = coord_sf, aes(color=intensity_list, size = intensity_list)) +
+      scale_color_gradientn(colors = plot.colors, name=plot.scalename) +
+      plot.theme
+    if(plot.3d){
+      open3d()
+      plot_gg(
+        p,
+        multicore = T,
+        width=5,
+        height=5,
+        scale=plot.3d.scale,
+        shadow_intensity = plot.3d.shadow_intensity,
+        offset_edges=T,
+        sunangle = plot.3d.sunangle,
+        zoom = 0.5,
+        phi = 30,
+        theta = -30,
+      )
+    }else{
+      p
+    }
+  }else{
+    return(cbind(as.data.frame(coord_sf), intensity_list))
+  }
 
 }

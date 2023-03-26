@@ -9,6 +9,7 @@ plot_intensity_diamond(
   point_layer,
   shape_layer,
   cellsize,
+  net.alpha = 1,
   net.border = TRUE,
   net.border.color = "black",
   net.border.width = 1,
@@ -28,6 +29,8 @@ plot_intensity_diamond(
 \item{shape_layer}{sf object: An sf object consisting of a polygon.}
 
 \item{cellsize}{numeric: Size of the diamonds of the net.}
+
+\item{net.alpha}{numeric: Between 0 and 1 for opacity controlling}
 
 \item{net.border}{logical: Determines if borders of the forms will be drawn}
 
