@@ -117,5 +117,12 @@ The output then can look somewhat like the following images:
 | ![3d](readme/hex_3d.png)  | ![3d](readme/fish_3d.png) |
 
 
+# Roadmap
+
+- [ ] More geometries and forms
+- [ ] Basemap integration
+- [ ] Full ggplot parameter passthrough
+- [ ] Error handling messages providance
+
 
 
