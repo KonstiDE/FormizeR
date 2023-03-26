@@ -1,3 +1,28 @@
+#' @export
+#' @title: plot_intensity_bubbles
+#' Calculate and plot intensity maps with a circular shape.
+#'
+#' @param point_layer sf object: An sf object containing points.
+#' @param shape_layer sf object: An sf object consisting of a polygon.
+#' @param shape logical: Determines if you want to plot the shape behind the bubbles
+#' @param shape.fill.color character: Fill color of the shape
+#' @param shape.border.color character: Border color of the shape
+#' @param plot logical: Whether to plot the map
+#' @param plot.colors vector of characters: Sets the colorscale for the plot
+#' @param plot.scalename character: Displays a name for the scalebar
+#' @param plot.theme ggplot2 theme: Select a theme
+#' @param plot.3d logical: Plots the image in a 3d environment (ignored if plot=FALSE)
+#' @param plot.3d.scale logical: Plots the image in a 3d environment (ignored if plot.3d=FALSE)
+#' @param plot.3d.sunangle numeric: Angle of the shadow in the 3d plot (ignored if plot.3d=FALSE)
+#' @param plot.3d.shadow_intensity numeric: Intensity of the shadow in the 3d plot (ignored if plot.3d=FALSE)
+#' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
+#' @examples
+#' plot_intensity_bubbles(ger_points, ger_shape)
+#' @import sf
+#' @import ggplot2
+#' @import rayshader
+#' @import rgl
+#' @import spatialrisk
 plot_intensity_bubbles <- function(
   point_layer,
   shape_layer,

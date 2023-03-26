@@ -1,6 +1,6 @@
 #' @export
 #' @title: plot_intensity_standard
-#' Calculate and plot intensity maps with a hexagonial or rectangular shapes.
+#' Calculate and plot intensity maps with a hexagonial or rectangular shape.
 #'
 #' @param point_layer sf object: An sf object containing points.
 #' @param shape_layer sf object: An sf object consisting of a polygon.
@@ -11,7 +11,7 @@
 #' @param net.border.color character: Sets the color of the outlines (ignored if hex.border=FALSE)
 #' @param net.border.width numeric: Sets the width of the outlines (ignored if hex.border=FALSE)
 #' @param plot logical: Whether to plot the map
-#' @param plot.color vector of characters: Sets the colorscale for the plot
+#' @param plot.colors vector of characters: Sets the colorscale for the plot
 #' @param plot.scalename character: Displays a name for the scalebar
 #' @param plot.theme ggplot2 theme: Select a theme
 #' @param plot.3d logical: Plots the image in a 3d environment (ignored if plot=FALSE)
@@ -20,7 +20,7 @@
 #' @param plot.3d.shadow_intensity numeric: Intensity of the shadow in the 3d plot (ignored if plot.3d=FALSE)
 #' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
 #' @examples
-#' plot_intensity_standard(point_layer, shape_layer, cellsize=0.3, hex=TRUE, plot=TRUE)
+#' plot_intensity_standard(ger_points, ger_shape, cellsize=0.3, hex=TRUE, plot=TRUE)
 #' @import sf
 #' @import ggplot2
 #' @import rayshader
