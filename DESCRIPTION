@@ -13,7 +13,8 @@ Imports:
     raster,
     rayshader,
     rgl,
-    sf
+    sf,
+    spatialrisk
 BugReports: https://github.com/KonstiDE/FormizeR/issues
 RoxygenNote: 7.2.3
 Depends: 
