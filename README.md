@@ -14,6 +14,7 @@ library(raster)
 library(sf)
 library(rayshader)
 library(rgl)
+library(spatialrisk)
 ```
 
 ## Exemplary Usage
@@ -77,7 +78,8 @@ A list of all methods can be found below as FormizeR provides:
 > plot_intensity_rectengular_fishernet(...)\
 > plot_intensity_standard(...)\
 > plot_intensity_triangular_left(...)\
-> plot_intensity_triangular_right(...)
+> plot_intensity_triangular_right(...)\
+> plot_intensity_bubbles(...)
 
 |          ...standard(hex=TRUE)           |           ...standard(hex=FALSE)           |                ...standard(...)                |
 |:----------------------------------------:|:------------------------------------------:|:----------------------------------------------:|
