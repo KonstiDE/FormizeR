@@ -22,6 +22,7 @@
 #' @import ggplot2
 #' @import rayshader
 #' @import rgl
+#' @import spatialrisk
 plot_intensity_bubbles <- function(
   point_layer,
   shape_layer,
