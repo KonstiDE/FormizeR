@@ -16,14 +16,12 @@
 load_all("R/")
 
 
-plot_(
+plot_intensity_bubbles(
   ger_points,
   ger_admin,
-  cellsize = 0.5,
-  net.alpha = 0.1,
-  net.border = FALSE,
-  plot.color = c("purple", "orange", "red"),
-  plot.theme = theme_dark()
+  shape = FALSE,
+  plot.color = c("grey", "orange", "red"),
+  plot.theme = theme_classic()
 )
 snapshot3d("readme/hex_3d.png")
 
