@@ -4,7 +4,7 @@ visual overviews for point intensities with different shapes.
 
 ## Installation
 For installing the FormizeR package, install the newest of the ``devtools`` or
-``remotes`` package. Then go ahead with
+``remotes`` package **and** `Rcpp >= 1.0.10`. Then go ahead with
 ```R
 devtools/remotes::install_github("KonstiDE/FormizeR", dependencies = T)
 library(FormizeR)
@@ -39,10 +39,10 @@ values are bold only:
 > ***point_layer*** sf object: An sf object containing points.\
 > ***shape_layer*** sf object: An sf object consisting of a polygon.\
 > ***cellsize*** numeric: Size of the hexagons / rectangles.\
-> **hex** logical=TRUE\
-> **hex.border** logical=TRUE\
-> **hex.border.color** character='black'\
-> **hex.border.width** numeric=1\
+> **net** logical=TRUE\
+> **net.border** logical=TRUE\
+> **net.border.color** character='black'\
+> **net.border.width** numeric=1\
 > **plot** logical=TRUE\
 > **plot.color** vector of characters=c("white", "blue")\
 > **plot.scalename** character=''\
@@ -62,12 +62,12 @@ snippet shows an example of how to plot the FormizeR result with a custom plot:
 ```R
 df <- plot_intensity_standard(
     ger_points,
-    ger_shape,
+    ger_admin,
     cellsize = 0.4,
     plot=FALSE
 )
 
-ggplot(data = df$geometry, aes(df$intensity)) + 
+ggplot(data = df$geometry, aes(fill=df$intensity)) + 
     geom_sf(color=NA) + 
     scale_fill_gradientn(colours = c("purple", "orange", "red"))
 ```
@@ -81,7 +81,7 @@ A list of all methods can be found below as FormizeR provides:
 > plot_intensity_triangular_right(...)\
 > plot_intensity_bubbles(...)
 
-|          ...standard(hex=TRUE)           |           ...standard(hex=FALSE)           |                ...standard(...)                |
+|          ...standard(hex=TRUE)           |           ...standard(hex=FALSE)           |           ...standard_fishernet(...)           |
 |:----------------------------------------:|:------------------------------------------:|:----------------------------------------------:|
 | <img src="readme/hex.png" width="200px"> | <img src="readme/rects.png" width="200px"> | <img src="readme/fishernet.png" width="200px"> |
 
@@ -104,7 +104,7 @@ plot_intensity_standard(
   ger_points,
   ger_admin,
   cellsize = 0.5,
-  hex.border = FALSE,
+  net.border = FALSE,
   plot.color = c("purple", "orange", "red"),
   plot.3d=TRUE,
 )
