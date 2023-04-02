@@ -82,7 +82,7 @@ position_triangle_right <- function(m, crs, cellsize, height, offset_x, offset_y
 #' @param plot.3d.shadow_intensity numeric: Intensity of the shadow in the 3d plot (ignored if plot.3d=FALSE)
 #' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
 #' @examples
-#' plot_intensity_fishernet(ger_points, ger_shape, cellsize=0.3, hex=TRUE, plot=TRUE)
+#' plot_intensity_fishernet(ger_points, ger_shape, cellsize=0.3, plot=TRUE)
 #' @import raster
 #' @import sf
 #' @import ggplot2
