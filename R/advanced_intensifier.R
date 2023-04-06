@@ -1,11 +1,29 @@
+position_rhombus_tile <- function(m, crs, offset_x, offset_y){
+  if(offset_x != 0){
+    m[1,][1] <- m[1,][1] + offset_x
+    m[2,][1] <- m[2,][1] + offset_x
+    m[3,][1] <- m[3,][1] + offset_x
+    m[4,][1] <- m[4,][1] + offset_x
+    m[5,][1] <- m[5,][1] + offset_x
+  }
+  if(offset_y != 0){
+    m[1,][2] <- m[1,][2] + offset_y
+    m[2,][2] <- m[2,][2] + offset_y
+    m[3,][2] <- m[3,][2] + offset_y
+    m[4,][2] <- m[4,][2] + offset_y
+    m[5,][2] <- m[5,][2] + offset_y
+  }
+  return(st_sfc(st_polygon(list(m)), crs=crs))
+}
+
+
 #' @export
-#' @title: plot_intensity_standard
-#' Calculate and plot intensity maps with a hexagonial or rectangular shape.
+#' @title: plot_intensity_rhombus
+#' Calculate and plot intensity maps with a rhombus tiled shape.
 #'
 #' @param point_layer sf object: An sf object containing points.
 #' @param shape_layer sf object: An sf object consisting of a polygon.
 #' @param cellsize numeric: Size of the hexagons / rectangles.
-#' @param hex logical: If TRUE, will do hexagon, rectangles if FALSE
 #' @param net.alpha numeric: Between 0 and 1 for opacity controlling
 #' @param net.border logical: Determines if borders of the forms will be drawn
 #' @param net.border.color character: Sets the color of the outlines (ignored if hex.border=FALSE)
@@ -20,16 +38,15 @@
 #' @param plot.3d.shadow_intensity numeric: Intensity of the shadow in the 3d plot (ignored if plot.3d=FALSE)
 #' @returns data.frame: With column geometry (sf polygons) and intensity (numerics)
 #' @examples
-#' plot_intensity_standard(ger_points, ger_shape, cellsize=0.3, hex=TRUE, plot=TRUE)
+#' plot_intensity_rhombus(ger_points, ger_shape, cellsize=0.3, plot=TRUE)
 #' @import sf
 #' @import ggplot2
 #' @import rayshader
 #' @import rgl
-plot_intensity_standard <- function(
+plot_intensity_rhombus <- function(
   point_layer,
   shape_layer,
   cellsize,
-  hex=TRUE,
   net.alpha=1.0,
   net.border=TRUE,
   net.border.color="black",
@@ -43,29 +60,55 @@ plot_intensity_standard <- function(
   plot.3d.sunangle=360,
   plot.3d.shadow_intensity=0.75
 ){
-  point_layer <- st_read("data/ger_bakeries.gpkg")
   grid_extent <- extent(point_layer)
-
-  cellsize = 1
+  grid_crs <- crs(point_layer)
 
   lonlat1 <- cbind(grid_extent@xmin, grid_extent@ymin + cellsize / 4)
   lonlat2 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin)
-  lonlat3 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin +  + cellsize / 2)
+  lonlat3 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + cellsize / 2)
   lonlat4 <- cbind(grid_extent@xmin, grid_extent@ymin + 3 * cellsize / 4)
+  pol_matrix <- rbind(lonlat1, lonlat2, lonlat3, lonlat4, lonlat1)
 
-  pol <- st_polygon(list(lonlat1, lonlat2, lonlat3, lonlat4, lonlat1))
-  pol_sf <- st_as_sf(pol)
+  lonlat5 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin)
+  lonlat6 <- cbind(grid_extent@xmin + cellsize, grid_extent@ymin + cellsize / 4)
+  lonlat7 <- cbind(grid_extent@xmin + cellsize, grid_extent@ymin + 3 * cellsize / 4)
+  lonlat8 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + cellsize / 2)
+  pol2_matrix <- rbind(lonlat5, lonlat6, lonlat7, lonlat8, lonlat5)
 
-  ggplot(data = pol_sf)
+  lonlat9 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + cellsize / 2)
+  lonlat10 <- cbind(grid_extent@xmin + cellsize, grid_extent@ymin + 3 * cellsize / 4)
+  lonlat11 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + cellsize)
+  lonlat12 <- cbind(grid_extent@xmin, grid_extent@ymin + 3 * cellsize / 4)
+  pol3_matrix <- rbind(lonlat9, lonlat10, lonlat11, lonlat12, lonlat9)
 
+  rhombus_list <- list()
+  runner_x <- 0
+  runner_y <- 0
+  starting_x <- 0
+  for (t in seq(0:ceiling((grid_extent@ymax - grid_extent@ymin) / cellsize))){
+    for (i in seq(0:ceiling((grid_extent@xmax - grid_extent@xmin) / cellsize))){
+      rhombus_list[[length(rhombus_list) + 1]] <- position_rhombus_tile(pol_matrix, grid_crs, runner_x + starting_x, runner_y)
+      rhombus_list[[length(rhombus_list) + 1]] <- position_rhombus_tile(pol2_matrix, grid_crs, runner_x + starting_x, runner_y)
+      rhombus_list[[length(rhombus_list) + 1]] <- position_rhombus_tile(pol3_matrix, grid_crs, runner_x + starting_x, runner_y)
 
-  grid <- st_make_grid(shape_layer, cellsize = cellsize, square = !hex)
+      runner_x <- runner_x + cellsize
+    }
+    runner_x <- 0
+    runner_y <- runner_y + 3 * cellsize / 4
+    if(starting_x == 0){
+      starting_x <- cellsize / 2
+    }else{
+      starting_x <- 0
+    }
+  }
+  rhombus_sf <- sf::st_sf(as.data.frame(do.call(rbind, rhombus_list)), crs = grid_crs)
+  rhombus_sf <- sf::st_as_sfc(rhombus_sf)
 
-  intersection <- lengths(st_intersects(grid, shape_layer)) > 0
-  intensity <- lengths(st_intersects(grid[intersection], point_layer))
+  intersection <- lengths(st_intersects(rhombus_sf, shape_layer)) > 0
+  intensity <- lengths(st_intersects(rhombus_sf[intersection], point_layer))
 
   if(plot){
-    p <- ggplot(grid[intersection], aes(fill = intensity)) +
+    p <- ggplot(rhombus_sf[intersection], aes(fill = intensity)) +
       geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width, alpha = net.alpha) +
       scale_fill_gradientn(colours=plot.colors, name=plot.scalename) +
       plot.theme
@@ -90,7 +133,7 @@ plot_intensity_standard <- function(
     }
 
   }else{
-    return(cbind(as.data.frame(grid[intersection]), intensity))
+    return(cbind(as.data.frame(rhombus_sf[intersection]), intensity))
   }
 
 }

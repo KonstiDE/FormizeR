@@ -16,10 +16,10 @@
 load_all("R/")
 
 
-plot_intensity_bubbles(
+plot_intensity_rhombus(
   ger_points,
   ger_admin,
-  shape = FALSE,
+  cellsize = 1,
   plot.color = c("grey", "orange", "red"),
   plot.theme = theme_classic()
 )
