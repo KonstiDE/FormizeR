@@ -16,12 +16,18 @@ position_rhombus_tile <- function(m, crs, offset_x, offset_y){
   return(st_sfc(st_polygon(list(m)), crs=crs))
 }
 
-position_triangle_midi <- function(m, crs, height, offset_x, offset_y, flip){
+position_trakis_tile <- function(m, crs, height, offset_x, offset_y, flip, lower_tile){
+
   if(flip){
-    m[1,][2] <- m[1,][2] + height
-    m[4,][2] <- m[4,][2] + height
-    m[3,][2] <- m[3,][2] - height
-    m[2,][2] <- m[2,][2] + height
+    if(lower_tile){
+      m[1,][2] <- m[1,][2] + height
+      m[2,][2] <- m[2,][2] + height
+      m[4,][2] <- m[4,][2] + height
+    }else{
+      m[1,][2] <- m[1,][2] + height
+      m[2,][2] <- m[2,][2] - height
+      m[4,][2] <- m[4,][2] + height
+    }
   }
   if(offset_x != 0){
     m[1,][1] <- m[1,][1] + offset_x
@@ -37,8 +43,6 @@ position_triangle_midi <- function(m, crs, height, offset_x, offset_y, flip){
   }
   return(st_sfc(st_polygon(list(m)), crs=crs))
 }
-
-
 
 #' @export
 #' @title: plot_intensity_rhombus
@@ -108,7 +112,7 @@ plot_intensity_rhombus <- function(
   runner_x <- 0
   runner_y <- 0
   starting_x <- 0
-  for (t in seq(0:ceiling((grid_extent@ymax - grid_extent@ymin) / cellsize))){
+  for (t in seq(0:ceiling((grid_extent@ymax - grid_extent@ymin) / cellsize * 2))){
     for (i in seq(0:ceiling((grid_extent@xmax - grid_extent@xmin) / cellsize))){
       rhombus_list[[length(rhombus_list) + 1]] <- position_rhombus_tile(pol_matrix, grid_crs, runner_x + starting_x, runner_y)
       rhombus_list[[length(rhombus_list) + 1]] <- position_rhombus_tile(pol2_matrix, grid_crs, runner_x + starting_x, runner_y)
@@ -204,11 +208,6 @@ plot_intensity_trakistile <- function(
   plot.3d.sunangle=360,
   plot.3d.shadow_intensity=0.75
 ){
-  point_layer <- st_read("data/ger_bakeries.gpkg")
-  shape_layer <- st_read("data/ger_admin.gpkg")
-
-  cellsize <- 1
-
   height <- sqrt(cellsize * cellsize - (cellsize / 2) * (cellsize / 2))
   height
 
@@ -217,47 +216,49 @@ plot_intensity_trakistile <- function(
 
   lonlat1 <- cbind(grid_extent@xmin, grid_extent@ymin)
   lonlat2 <- cbind(grid_extent@xmin + cellsize, grid_extent@ymin)
-  lonlat3 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + height / 2.666)
+  lonlat3 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + height / 2)
   matrix <- rbind(lonlat1, lonlat2, lonlat3, lonlat1)
 
   lonlat4 <- cbind(grid_extent@xmin + cellsize, grid_extent@ymin)
   lonlat5 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + height)
-  lonlat6 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + height / 2.666)
+  lonlat6 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + height / 2)
   matrix2 <- rbind(lonlat4, lonlat5, lonlat6, lonlat4)
 
   lonlat7 <- cbind(grid_extent@xmin, grid_extent@ymin)
-  lonlat8 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + height / 2.666)
-  lonlat9 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + height)
+  lonlat8 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + height)
+  lonlat9 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + height / 2)
   matrix3 <- rbind(lonlat7, lonlat8, lonlat9, lonlat7)
 
+  ggplot() +
+    geom_sf(data = st_sfc(st_polygon(list(matrix))))
 
   ggplot() +
-    geom_sf(data = st_sfc(st_polygon(list(matrix)))) +
-    geom_sf(data = st_sfc(st_polygon(list(matrix2)))) +
-    geom_sf(data = st_sfc(st_polygon(list(matrix3))))
+    geom_sf(data = position_trakis_tile(matrix, grid_crs, height, 0, 0, F, T)) +
+    geom_sf(data = position_trakis_tile(matrix2, grid_crs, height, 0, 0, F, F)) +
+    geom_sf(data = position_trakis_tile(matrix3, grid_crs, height, 0, 0, F, F))
 
-
-  fishernet_list <- list()
+  trakis_list <- list()
   runner_x <- 0
   runner_y <- 0
+  starting_x <- 0
   for (t in seq(0:ceiling((grid_extent@ymax - grid_extent@ymin) / height))){
     for (i in seq(0:ceiling((grid_extent@xmax - grid_extent@xmin) / cellsize * 2))){
-      fishernet_list[[length(fishernet_list) + 1]] <- position_triangle_midi(matrix, grid_crs, height, runner_x, runner_y, if(t %% 2) i %% 2 == 0 else i %% 2 == 1)
-      fishernet_list[[length(fishernet_list) + 1]] <- position_triangle_midi(matrix, grid_crs, height, runner_x, runner_y, if(t %% 2) i %% 2 == 0 else i %% 2 == 1)
-      fishernet_list[[length(fishernet_list) + 1]] <- position_triangle_midi(matrix, grid_crs, height, runner_x, runner_y, if(t %% 2) i %% 2 == 0 else i %% 2 == 1)
+      trakis_list[[length(trakis_list) + 1]] <- position_trakis_tile(matrix, grid_crs, height, runner_x, runner_y, if(t %% 2) i %% 2 == 0 else i %% 2 == 1, T)
+      trakis_list[[length(trakis_list) + 1]] <- position_trakis_tile(matrix2, grid_crs, height, runner_x, runner_y, if(t %% 2) i %% 2 == 0 else i %% 2 == 1, F)
+      trakis_list[[length(trakis_list) + 1]] <- position_trakis_tile(matrix3, grid_crs, height, runner_x, runner_y, if(t %% 2) i %% 2 == 0 else i %% 2 == 1, F)
       runner_x <- runner_x + cellsize / 2
     }
     runner_x <- 0
     runner_y <- runner_y + height
   }
-  fishernet_sf <- sf::st_sf(as.data.frame(do.call(rbind, fishernet_list)), crs = grid_crs)
-  fishernet_sf <- sf::st_as_sfc(fishernet_sf)
+  trakis_sf <- sf::st_sf(as.data.frame(do.call(rbind, trakis_list)), crs = grid_crs)
+  trakis_sf <- sf::st_as_sfc(trakis_sf)
 
-  intersection <- lengths(st_intersects(fishernet_sf, shape_layer)) > 0
-  intensity <- lengths(st_intersects(fishernet_sf[intersection], point_layer))
+  intersection <- lengths(st_intersects(trakis_sf, shape_layer)) > 0
+  intensity <- lengths(st_intersects(trakis_sf[intersection], point_layer))
 
   if(plot){
-    p <- ggplot(fishernet_sf[intersection], aes(fill = intensity)) +
+    p <- ggplot(trakis_sf[intersection], aes(fill = intensity)) +
       geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width, alpha=net.alpha) +
       scale_fill_gradientn(colours=plot.colors, name=plot.scalename) +
       plot.theme
@@ -282,7 +283,7 @@ plot_intensity_trakistile <- function(
     }
 
   }else{
-    return(cbind(as.data.frame(grid[intersection]), intensity))
+    return(cbind(as.data.frame(trakis_sf[intersection]), intensity))
   }
 }
 

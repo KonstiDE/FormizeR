@@ -16,10 +16,11 @@
 load_all("R/")
 
 
-plot_intensity_rhombus(
+plot_intensity_trakistile(
   ger_points,
   ger_admin,
-  cellsize = 1,
+  cellsize = 0.5,
+  net.border = FALSE,
   plot.color = c("grey", "orange", "red"),
   plot.theme = theme_classic()
 )
