@@ -49,7 +49,7 @@ values are bold only:
 > **plot.theme** ggplot2-theme=theme_bw()\
 > **plot.3d** logical=FALSE\
 > **plot.3d.scale** numeric=100\
-> **plot.3d.sunangle** numeric=360 
+> **plot.3d.sunangle** numeric=360\
 > **plot.3d.shadow_intensity** numeric=0.75 
 
 Anyhow, one thinks that the parameters are not sufficient to create the plot
