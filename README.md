@@ -83,19 +83,11 @@ A list of all methods can be found below as FormizeR provides:
 > plot_intensity_diamond(...)\
 > plot_intensity_bubbles(...)
 
-<div class="foo">
 
-| <div style="width:490px">...standard(hex=TRUE)</div> |   ...standard(hex=FALSE)    |     ..._fishernet(...)      |     ..._triangle_left(...)      |     ..._triangle_right(...)      | ..._rectengular_fishernet(...) |   ..._trakistile(...)    |     ..._rhombus(...)      |     ..._diamond(...)      |     ..._bubbles(...)      |
-|:----------------------------------------------------:|:---------------------------:|:---------------------------:|:-------------------------------:|:--------------------------------:|:------------------------------:|:------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
-|              ![](./readme/hexagon.PNG)               | ![](./readme/rectangle.PNG) | ![](./readme/fishernet.PNG) | ![](./readme/triangle_left.PNG) | ![](./readme/triangle_right.PNG) | ![](./readme/rect_fisher.PNG)  | ![](./readme/trakis.PNG) | ![](./readme/rhombus.PNG) | ![](./readme/diamond.PNG) | ![](./readme/bubbles.PNG) |
+| <div style="width:300px">...standard(hex=TRUE)</div> | <div style="width:300px">...standard(hex=FALSE)</div> | <div style="width:300px">..._fishernet(...)</div> | <div style="width:300px">..._triangle_left(...)</div> | <div style="width:300px">..._triangle_right(...)</div> | <div style="width:300px">..._rectengular_fishernet(...)</div> | <div style="width:300px">..._trakistile(...)</div> | <div style="width:300px">..._rhombus(...)</div> | <div style="width:300px">..._diamond(...)</div> | <div style="width:300px">..._bubbles(...)</div> |
+|:----------------------------------------------------:|:-----------------------------------------------------:|:-------------------------------------------------:|:-----------------------------------------------------:|:------------------------------------------------------:|:-------------------------------------------------------------:|:--------------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|
+|              ![](./readme/hexagon.PNG)               |              ![](./readme/rectangle.PNG)              |            ![](./readme/fishernet.PNG)            |            ![](./readme/triangle_left.PNG)            |            ![](./readme/triangle_right.PNG)            |                 ![](./readme/rect_fisher.PNG)                 |              ![](./readme/trakis.PNG)              |            ![](./readme/rhombus.PNG)            |            ![](./readme/diamond.PNG)            |            ![](./readme/bubbles.PNG)            |
 
-</div>
-
-<style>
-.foo table {
-  column-width: 200px !important;
-}
-</style>
 
 # 3D Plots
 Creating a 3d plot of your intensity map with FormizeR is easy. Just set the plot and plot.3d both
