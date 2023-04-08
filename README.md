@@ -85,9 +85,9 @@ A list of all methods can be found below as FormizeR provides:
 
 <div class="foo">
 
-|   ...standard(hex=TRUE)   |   ...standard(hex=FALSE)    |     ..._fishernet(...)      |     ..._triangle_left(...)      |     ..._triangle_right(...)      | ..._rectengular_fishernet(...) |   ..._trakistile(...)    |     ..._rhombus(...)      |     ..._diamond(...)      |     ..._bubbles(...)      |
-|:-------------------------:|:---------------------------:|:---------------------------:|:-------------------------------:|:--------------------------------:|:------------------------------:|:------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
-| ![](./readme/hexagon.PNG) | ![](./readme/rectangle.PNG) | ![](./readme/fishernet.PNG) | ![](./readme/triangle_left.PNG) | ![](./readme/triangle_right.PNG) | ![](./readme/rect_fisher.PNG)  | ![](./readme/trakis.PNG) | ![](./readme/rhombus.PNG) | ![](./readme/diamond.PNG) | ![](./readme/bubbles.PNG) |
+| <div style="width:490px">...standard(hex=TRUE)</div> |   ...standard(hex=FALSE)    |     ..._fishernet(...)      |     ..._triangle_left(...)      |     ..._triangle_right(...)      | ..._rectengular_fishernet(...) |   ..._trakistile(...)    |     ..._rhombus(...)      |     ..._diamond(...)      |     ..._bubbles(...)      |
+|:----------------------------------------------------:|:---------------------------:|:---------------------------:|:-------------------------------:|:--------------------------------:|:------------------------------:|:------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
+|              ![](./readme/hexagon.PNG)               | ![](./readme/rectangle.PNG) | ![](./readme/fishernet.PNG) | ![](./readme/triangle_left.PNG) | ![](./readme/triangle_right.PNG) | ![](./readme/rect_fisher.PNG)  | ![](./readme/trakis.PNG) | ![](./readme/rhombus.PNG) | ![](./readme/diamond.PNG) | ![](./readme/bubbles.PNG) |
 
 </div>
 
