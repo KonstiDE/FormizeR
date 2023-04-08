@@ -83,9 +83,9 @@ A list of all methods can be found below as FormizeR provides:
 > plot_intensity_diamond(...)\
 > plot_intensity_bubbles(...)
 
-|                    ...standard(hex=TRUE)                    |                    ...standard(hex=FALSE)                     |                      ..._fishernet(...)                       |                      ..._triangle_left(...)                       |                      ..._triangle_right(...)                       |                 ..._rectengular_fishernet(...)                  |                    ..._trakistile(...)                     |                      ..._rhombus(...)                       |                      ..._diamond(...)                       |                      ..._bubbles(...)                       |
-|:-----------------------------------------------------------:|:-------------------------------------------------------------:|:-------------------------------------------------------------:|:-----------------------------------------------------------------:|:------------------------------------------------------------------:|:---------------------------------------------------------------:|:----------------------------------------------------------:|:-----------------------------------------------------------:|:-----------------------------------------------------------:|:-----------------------------------------------------------:|
-| <img src="readme/hexagon.PNG" height="500px" width="412px"> | <img src="readme/rectangle.PNG" height="500px" width="412px"> | <img src="readme/fishernet.PNG" height="500px" width="412px"> | <img src="readme/triangle_left.PNG" height="500px" width="412px"> | <img src="readme/triangle_right.PNG" height="500px" width="412px"> | <img src="readme/rect_fisher.PNG" height="500px" width="412px"> | <img src="readme/trakis.PNG" height="500px" width="412px"> | <img src="readme/rhombus.PNG" height="500px" width="412px"> | <img src="readme/diamond.PNG" height="500px" width="412px"> | <img src="readme/bubbles.PNG" height="500px" width="412px"> |
+|                   ...standard(hex=TRUE)                    |                    ...standard(hex=FALSE)                    |                      ..._fishernet(...)                      |                      ..._triangle_left(...)                      |                      ..._triangle_right(...)                      |                 ..._rectengular_fishernet(...)                 |                    ..._trakistile(...)                    |                      ..._rhombus(...)                      |                      ..._diamond(...)                      |                      ..._bubbles(...)                      |
+|:----------------------------------------------------------:|:------------------------------------------------------------:|:------------------------------------------------------------:|:----------------------------------------------------------------:|:-----------------------------------------------------------------:|:--------------------------------------------------------------:|:---------------------------------------------------------:|:----------------------------------------------------------:|:----------------------------------------------------------:|:----------------------------------------------------------:|
+|               <img src="readme/hexagon.PNG">               |               <img src="readme/rectangle.PNG">               |               <img src="readme/fishernet.PNG">               |               <img src="readme/triangle_left.PNG">               |               <img src="readme/triangle_right.PNG">               |               <img src="readme/rect_fisher.PNG">               |               <img src="readme/trakis.PNG">               |               <img src="readme/rhombus.PNG">               |               <img src="readme/diamond.PNG">               |               <img src="readme/bubbles.PNG">               |
 
 
 # 3D Plots
@@ -107,9 +107,9 @@ rgl.snapshot("snapshot.png")
 ```
 The output then can look somewhat like the following images:
 
-| ..._standard(plot3d=TRUE) | ...fishernet(plot3d=TRUE) |
-|:-------------------------:|:--------------------------|
-| ![3d](readme/hex_3d.png)  | ![3d](readme/fish_3d.png) |
+| ..._standard(plot3d=TRUE) | ...fishernet(plot3d=TRUE)  |
+|:-------------------------:|:---------------------------|
+| ![3d](readme/hex_3d.png)  | ![3d](readme/fish_3d.png)  |
 
 
 # Roadmap
