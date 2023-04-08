@@ -16,13 +16,13 @@
 load_all("R/")
 
 
-plot_intensity_trakistile(
+plot_intensity_rectengular_fishernet(
   ger_points,
   ger_admin,
-  cellsize = 0.5,
+  cellsize = 0.7,
   net.border = FALSE,
-  plot.color = c("grey", "orange", "red"),
-  plot.theme = theme_classic()
+  plot.colors = c("#ffffd9", "#edf8b1", "#c7e9b4", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#0c2c84"),
+  plot.theme = theme_dark()
 )
 
 snapshot3d("readme/hex_3d.png")
