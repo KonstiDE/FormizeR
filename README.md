@@ -93,7 +93,7 @@ A list of all methods can be found below as FormizeR provides:
 
 <style>
 .foo table {
-  column-width: 200px;
+  column-width: 200px !important;
 }
 </style>
 
