@@ -85,7 +85,7 @@ A list of all methods can be found below as FormizeR provides:
 
 |                               ...standard(hex=TRUE)                                |   ...standard(hex=FALSE)    |     ..._fishernet(...)      |     ..._triangle_left(...)      |     ..._triangle_right(...)      | ..._rectengular_fishernet(...) |   ..._trakistile(...)    |     ..._rhombus(...)      |     ..._diamond(...)      |     ..._bubbles(...)      |
 |:----------------------------------------------------------------------------------:|:---------------------------:|:---------------------------:|:-------------------------------:|:--------------------------------:|:------------------------------:|:------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
-| <img src="readme/hexagon.PNG" alt="image" height="551px" style="max-width: 100%;"> | ![](./readme/rectangle.PNG) | ![](./readme/fishernet.PNG) | ![](./readme/triangle_left.PNG) | ![](./readme/triangle_right.PNG) | ![](./readme/rect_fisher.PNG)  | ![](./readme/trakis.PNG) | ![](./readme/rhombus.PNG) | ![](./readme/diamond.PNG) | ![](./readme/bubbles.PNG) |
+| <img src="readme/hexagon.PNG" alt="image" height="551px" style="min-width: 100%;"> | ![](./readme/rectangle.PNG) | ![](./readme/fishernet.PNG) | ![](./readme/triangle_left.PNG) | ![](./readme/triangle_right.PNG) | ![](./readme/rect_fisher.PNG)  | ![](./readme/trakis.PNG) | ![](./readme/rhombus.PNG) | ![](./readme/diamond.PNG) | ![](./readme/bubbles.PNG) |
 
 
 # 3D Plots
