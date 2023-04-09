@@ -287,3 +287,100 @@ plot_intensity_trakistile <- function(
   }
 }
 
+
+plot_intensity_deltoid_hexanogal <- function(
+  point_layer,
+  shape_layer,
+  cellsize,
+  net.alpha=1.0,
+  net.border=TRUE,
+  net.border.color="black",
+  net.border.width=1,
+  plot=TRUE,
+  plot.colors=c("purple", "orange", "red"),
+  plot.scalename="",
+  plot.theme=theme_classic(),
+  plot.3d=FALSE,
+  plot.3d.scale=100,
+  plot.3d.sunangle=360,
+  plot.3d.shadow_intensity=0.75
+){
+  point_layer <- st_read("data/ger_bakeries.gpkg")
+  shape_layer <- st_read("data/ger_admin.gpkg")
+
+  cellsize <- 1
+  height <- sqrt(cellsize * cellsize - (cellsize / 2) * (cellsize / 2))
+
+  grid_extent <- extent(point_layer)
+  grid_crs <- crs(point_layer)
+
+  lonlat1 <- cbind(grid_extent@xmin, grid_extent@ymin)
+  lonlat2 <- cbind(grid_extent@xmin + cellsize / 2, grid_extent@ymin + cellsize / 4)
+  lonlat3 <- cbind(grid_extent@xmin, grid_extent@ymin + cellsize)
+  lonlat4 <- cbind(grid_extent@xmin - cellsize / 2, grid_extent@ymin + cellsize / 4)
+  matrix <- rbind(lonlat1, lonlat2, lonlat3, lonlat4, lonlat1)
+
+  pol <- st_sfc(st_polygon(list(matrix)))
+
+  rot <- rotate.polygon(pol, angle = 60)
+
+  ggplot() +
+    geom_sf(data = pol) +
+    geom_sf(data = rot)
+
+  ggplot() +
+    geom_sf(data = position_trakis_tile(matrix, grid_crs, height, 0, 0, F, T)) +
+    geom_sf(data = position_trakis_tile(matrix2, grid_crs, height, 0, 0, F, F)) +
+    geom_sf(data = position_trakis_tile(matrix3, grid_crs, height, 0, 0, F, F))
+
+  trakis_list <- list()
+  runner_x <- 0
+  runner_y <- 0
+  starting_x <- 0
+  for (t in seq(0:ceiling((grid_extent@ymax - grid_extent@ymin) / height))){
+    for (i in seq(0:ceiling((grid_extent@xmax - grid_extent@xmin) / cellsize * 2))){
+      trakis_list[[length(trakis_list) + 1]] <- position_trakis_tile(matrix, grid_crs, height, runner_x, runner_y, if(t %% 2) i %% 2 == 0 else i %% 2 == 1, T)
+      trakis_list[[length(trakis_list) + 1]] <- position_trakis_tile(matrix2, grid_crs, height, runner_x, runner_y, if(t %% 2) i %% 2 == 0 else i %% 2 == 1, F)
+      trakis_list[[length(trakis_list) + 1]] <- position_trakis_tile(matrix3, grid_crs, height, runner_x, runner_y, if(t %% 2) i %% 2 == 0 else i %% 2 == 1, F)
+      runner_x <- runner_x + cellsize / 2
+    }
+    runner_x <- 0
+    runner_y <- runner_y + height
+  }
+  trakis_sf <- sf::st_sf(as.data.frame(do.call(rbind, trakis_list)), crs = grid_crs)
+  trakis_sf <- sf::st_as_sfc(trakis_sf)
+
+  intersection <- lengths(st_intersects(trakis_sf, shape_layer)) > 0
+  intensity <- lengths(st_intersects(trakis_sf[intersection], point_layer))
+
+  if(plot){
+    p <- ggplot(trakis_sf[intersection], aes(fill = intensity)) +
+      geom_sf(color=if(net.border) net.border.color else NA, lwd=net.border.width, alpha=net.alpha) +
+      scale_fill_gradientn(colours=plot.colors, name=plot.scalename) +
+      plot.theme
+
+    if(!plot.3d){
+      p
+    }else{
+      open3d()
+      plot_gg(
+        p,
+        multicore = T,
+        width=5,
+        height=5,
+        scale=plot.3d.scale,
+        shadow_intensity = plot.3d.shadow_intensity,
+        offset_edges=T,
+        sunangle = plot.3d.sunangle,
+        zoom = 0.5,
+        phi = 30,
+        theta = -30,
+      )
+    }
+
+  }else{
+    return(cbind(as.data.frame(trakis_sf[intersection]), intensity))
+  }
+}
+
+

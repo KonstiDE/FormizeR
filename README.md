@@ -72,6 +72,22 @@ ggplot(data = df$geometry, aes(fill=df$intensity)) +
     scale_fill_gradientn(colours = c("purple", "orange", "red"))
 ```
 
+If you choose to keep many settings provided by us, but still want to plot extra layers,
+you can just save an abitrary ``plot_intesity`` method with also with `plot=TRUE` and append upon it, like shown below:
+```R
+p <- plot_intensity_rectengular_fishernet(
+  ger_points,
+  ger_admin,
+  cellsize = 0.7,
+  net.border = FALSE,
+  plot.colors = c("#ffffd9", "#edf8b1", "#c7e9b4", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#0c2c84"),
+  plot.theme = theme_dark()
+)
+
+p + 
+  geom_sf(data = AnotherFancyDataFrame)
+```
+
 A list of all methods can be found below as FormizeR provides:
 > plot_intensity_standard(...)\
 > plot_intensity_fishernet(...)\
